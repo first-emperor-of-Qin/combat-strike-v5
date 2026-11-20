@@ -1,0 +1,39 @@
+{
+  "name": "@combat-strike/api",
+  "version": "5.1.0",
+  "private": true,
+  "type": "module",
+  "description": "枪战突击 · COMBAT STRIKE — 后端 API（Fastify / PostgreSQL）",
+  "main": "./dist/server.js",
+  "scripts": {
+    "prebuild": "node scripts/ensure-game-core.mjs",
+    "build": "tsc -p tsconfig.json",
+    "dev": "tsx watch src/server.ts",
+    "start": "node dist/server.js",
+    "pretest": "node scripts/ensure-game-core.mjs",
+    "test": "vitest run",
+    "test:watch": "vitest",
+    "db:migrate": "tsx src/db/migrate.ts",
+    "db:seed": "tsx src/db/seed.ts",
+    "pretypecheck": "node scripts/ensure-game-core.mjs",
+    "typecheck": "tsc -p tsconfig.test.json"
+  },
+  "dependencies": {
+    "@combat-strike/game-core": "*",
+    "@fastify/cors": "^11.4.3",
+    "@fastify/rate-limit": "^11.2.2",
+    "dotenv": "^18.0.10",
+    "fastify": "^5.12.8",
+    "jose": "^6.2.18",
+    "pg": "^8.23.1",
+    "zod": "^3.24.1",
+    "@fastify/static": "^8.0.4"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "@types/pg": "^8.23.1",
+    "tsx": "^4.23.15",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

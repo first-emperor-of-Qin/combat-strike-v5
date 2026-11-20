@@ -1,0 +1,805 @@
+{
+  "ok": true,
+  "data": {
+    "1": {
+      "name": "熔岩巨像",
+      "themeColor": 16729088,
+      "accentColor": 16755200,
+      "bodyGeo": "cylinder",
+      "skills": [
+        "fireball_volley",
+        "lava_pool",
+        "flame_nova"
+      ],
+      "passive": "molten_armor",
+      "damage": 120,
+      "speed": 2.5,
+      "attackRange": 18,
+      "shootInterval": 1.5
+    },
+    "2": {
+      "name": "水晶织网者",
+      "themeColor": 6750207,
+      "accentColor": 3368703,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "crystal_shards",
+        "web_entangle",
+        "prism_beam"
+      ],
+      "passive": "crystal_resonance",
+      "damage": 140,
+      "speed": 3.5,
+      "attackRange": 20,
+      "shootInterval": 1.4
+    },
+    "3": {
+      "name": "沙漠吞噬者",
+      "themeColor": 14535782,
+      "accentColor": 6706432,
+      "bodyGeo": "sphere",
+      "skills": [
+        "sand_burst",
+        "burrow_strike",
+        "summon_scarabs"
+      ],
+      "passive": "sand_armor",
+      "damage": 160,
+      "speed": 4,
+      "attackRange": 22,
+      "shootInterval": 1.3
+    },
+    "4": {
+      "name": "极光守望者",
+      "themeColor": 8969727,
+      "accentColor": 16777215,
+      "bodyGeo": "cone",
+      "skills": [
+        "ice_lance",
+        "aurora_beam",
+        "frost_nova"
+      ],
+      "passive": "frozen_aura",
+      "damage": 180,
+      "speed": 3,
+      "attackRange": 24,
+      "shootInterval": 1.2
+    },
+    "5": {
+      "name": "机械暴君",
+      "themeColor": 10066329,
+      "accentColor": 16776960,
+      "bodyGeo": "box",
+      "skills": [
+        "rocket_barrage",
+        "laser_sweep",
+        "emp_burst"
+      ],
+      "passive": "shield_regen",
+      "damage": 220,
+      "speed": 3.2,
+      "attackRange": 25,
+      "shootInterval": 1.1
+    },
+    "6": {
+      "name": "深海利维坦",
+      "themeColor": 3381759,
+      "accentColor": 26282,
+      "bodyGeo": "sphere",
+      "skills": [
+        "ink_cloud",
+        "tentacle_slam",
+        "tidal_wave"
+      ],
+      "passive": "aquatic_healing",
+      "damage": 260,
+      "speed": 3.8,
+      "attackRange": 22,
+      "shootInterval": 1.3
+    },
+    "7": {
+      "name": "时空编织者",
+      "themeColor": 11141375,
+      "accentColor": 16738047,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "time_slow",
+        "phase_shift",
+        "temporal_rift"
+      ],
+      "passive": "temporal_echo",
+      "damage": 300,
+      "speed": 4.5,
+      "attackRange": 26,
+      "shootInterval": 1
+    },
+    "8": {
+      "name": "腐尸领主",
+      "themeColor": 4482628,
+      "accentColor": 8978244,
+      "bodyGeo": "box",
+      "skills": [
+        "plague_cloud",
+        "bone_spear",
+        "raise_dead"
+      ],
+      "passive": "undying_will",
+      "damage": 360,
+      "speed": 3,
+      "attackRange": 24,
+      "shootInterval": 1.2
+    },
+    "9": {
+      "name": "虚空主宰",
+      "themeColor": 6684927,
+      "accentColor": 10040319,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "void_bolt",
+        "gravity_well",
+        "dimensional_tear"
+      ],
+      "passive": "void_shield",
+      "damage": 420,
+      "speed": 4,
+      "attackRange": 28,
+      "shootInterval": 1
+    },
+    "10": {
+      "name": "混沌原核",
+      "themeColor": 16711935,
+      "accentColor": 10040319,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "chaos_burst",
+        "reality_fracture",
+        "entropy_wave"
+      ],
+      "passive": "eternal_cycle",
+      "damage": 500,
+      "speed": 4.5,
+      "attackRange": 30,
+      "shootInterval": 0.9
+    },
+    "11": {
+      "name": "凛冬将军·布伦希",
+      "themeColor": 4491468,
+      "accentColor": 8965375,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "ice_lance",
+        "frost_nova",
+        "aurora_beam"
+      ],
+      "passive": "frozen_aura",
+      "damage": 240,
+      "speed": 3,
+      "attackRange": 20,
+      "shootInterval": 1
+    },
+    "12": {
+      "name": "冰晶女王·格蕾塔",
+      "themeColor": 5609949,
+      "accentColor": 10083839,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "crystal_shards",
+        "prism_beam",
+        "web_entangle"
+      ],
+      "passive": "crystal_resonance",
+      "damage": 260,
+      "speed": 3.2,
+      "attackRange": 22,
+      "shootInterval": 1
+    },
+    "13": {
+      "name": "寒渊领主·纳迦",
+      "themeColor": 2779802,
+      "accentColor": 6737151,
+      "bodyGeo": "sphere",
+      "skills": [
+        "tidal_wave",
+        "ink_cloud",
+        "tentacle_slam"
+      ],
+      "passive": "aquatic_healing",
+      "damage": 280,
+      "speed": 3,
+      "attackRange": 22,
+      "shootInterval": 1
+    },
+    "14": {
+      "name": "永冻时守·克罗诺斯二世",
+      "themeColor": 5929692,
+      "accentColor": 11189247,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "time_slow",
+        "phase_shift",
+        "temporal_rift"
+      ],
+      "passive": "temporal_echo",
+      "damage": 300,
+      "speed": 3.2,
+      "attackRange": 24,
+      "shootInterval": 1
+    },
+    "15": {
+      "name": "霜寂主宰·瓦尔基里",
+      "themeColor": 6724078,
+      "accentColor": 13434879,
+      "bodyGeo": "cone",
+      "skills": [
+        "ice_lance",
+        "frost_nova",
+        "rocket_barrage"
+      ],
+      "passive": "frozen_aura",
+      "damage": 360,
+      "speed": 3.4,
+      "attackRange": 24,
+      "shootInterval": 0.9
+    },
+    "16": {
+      "name": "虚空游魂·厄瑞玻斯",
+      "themeColor": 3807829,
+      "accentColor": 11141375,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "void_bolt",
+        "gravity_well",
+        "dimensional_tear"
+      ],
+      "passive": "void_shield",
+      "damage": 380,
+      "speed": 3.2,
+      "attackRange": 24,
+      "shootInterval": 0.9
+    },
+    "17": {
+      "name": "熵能使者·卡俄斯",
+      "themeColor": 4856422,
+      "accentColor": 13387007,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "entropy_wave",
+        "chaos_burst",
+        "reality_fracture"
+      ],
+      "passive": "eternal_cycle",
+      "damage": 420,
+      "speed": 3.4,
+      "attackRange": 26,
+      "shootInterval": 0.85
+    },
+    "18": {
+      "name": "虚空织影·尼克斯",
+      "themeColor": 3805264,
+      "accentColor": 10027263,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "void_bolt",
+        "phase_shift",
+        "prism_beam"
+      ],
+      "passive": "void_shield",
+      "damage": 460,
+      "speed": 3.6,
+      "attackRange": 26,
+      "shootInterval": 0.85
+    },
+    "19": {
+      "name": "混沌先知·普罗米",
+      "themeColor": 4856410,
+      "accentColor": 12255487,
+      "bodyGeo": "box",
+      "skills": [
+        "chaos_burst",
+        "reality_fracture",
+        "temporal_rift"
+      ],
+      "passive": "eternal_cycle",
+      "damage": 500,
+      "speed": 3.8,
+      "attackRange": 28,
+      "shootInterval": 0.8
+    },
+    "20": {
+      "name": "终焉奇点·阿撒托斯",
+      "themeColor": 5904998,
+      "accentColor": 16711935,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "void_bolt",
+        "gravity_well",
+        "entropy_wave"
+      ],
+      "passive": "void_shield",
+      "damage": 600,
+      "speed": 4.2,
+      "attackRange": 30,
+      "shootInterval": 0.8
+    },
+    "21": {
+      "name": "曦金守卫·赫利俄斯",
+      "themeColor": 13936192,
+      "accentColor": 16766720,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "solar_lance",
+        "gold_meteor",
+        "sunburst_barrage"
+      ],
+      "passive": "solar_crown",
+      "damage": 640,
+      "speed": 3.6,
+      "attackRange": 26,
+      "shootInterval": 0.8
+    },
+    "22": {
+      "name": "鎏金织匠·弥达斯",
+      "themeColor": 13081146,
+      "accentColor": 16763955,
+      "bodyGeo": "tetra",
+      "skills": [
+        "radiant_nova",
+        "halo_prison",
+        "solar_lance"
+      ],
+      "passive": "celestial_ward",
+      "damage": 680,
+      "speed": 3.7,
+      "attackRange": 26,
+      "shootInterval": 0.8
+    },
+    "23": {
+      "name": "日冕祭司·阿顿",
+      "themeColor": 12226356,
+      "accentColor": 16755268,
+      "bodyGeo": "sphere",
+      "skills": [
+        "judgment_beam",
+        "celestial_rain",
+        "radiant_nova"
+      ],
+      "passive": "solar_crown",
+      "damage": 720,
+      "speed": 3.8,
+      "attackRange": 27,
+      "shootInterval": 0.78
+    },
+    "24": {
+      "name": "圣金审判官·塞拉芬",
+      "themeColor": 13344316,
+      "accentColor": 16760896,
+      "bodyGeo": "box",
+      "skills": [
+        "blazing_pursuit",
+        "gold_meteor",
+        "aurora_curtain"
+      ],
+      "passive": "celestial_ward",
+      "damage": 760,
+      "speed": 3.9,
+      "attackRange": 28,
+      "shootInterval": 0.76
+    },
+    "25": {
+      "name": "太阳君王·赫利安",
+      "themeColor": 14462532,
+      "accentColor": 16766720,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "sunburst_barrage",
+        "divine_summon",
+        "judgment_beam"
+      ],
+      "passive": "solar_crown",
+      "damage": 850,
+      "speed": 4,
+      "attackRange": 29,
+      "shootInterval": 0.72
+    },
+    "26": {
+      "name": "苍穹哨卫·泽菲罗斯",
+      "themeColor": 10272988,
+      "accentColor": 8969727,
+      "bodyGeo": "cone",
+      "skills": [
+        "aurora_curtain",
+        "solar_lance",
+        "celestial_rain"
+      ],
+      "passive": "celestial_ward",
+      "damage": 900,
+      "speed": 4,
+      "attackRange": 27,
+      "shootInterval": 0.72
+    },
+    "27": {
+      "name": "天穹执政官·乌拉诺斯",
+      "themeColor": 9352918,
+      "accentColor": 6737151,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "starfall_flash",
+        "halo_prison",
+        "radiant_nova"
+      ],
+      "passive": "solar_crown",
+      "damage": 950,
+      "speed": 4.1,
+      "attackRange": 28,
+      "shootInterval": 0.7
+    },
+    "28": {
+      "name": "极光女王·欧若拉",
+      "themeColor": 8699054,
+      "accentColor": 6750156,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "aurora_curtain",
+        "prism_lattice",
+        "celestial_rain"
+      ],
+      "passive": "celestial_ward",
+      "damage": 1000,
+      "speed": 4.2,
+      "attackRange": 28,
+      "shootInterval": 0.68
+    },
+    "29": {
+      "name": "星辉领主·阿斯特赖俄斯",
+      "themeColor": 8427724,
+      "accentColor": 10070783,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "divine_summon",
+        "starfall_flash",
+        "sunburst_barrage"
+      ],
+      "passive": "solar_crown",
+      "damage": 1060,
+      "speed": 4.3,
+      "attackRange": 29,
+      "shootInterval": 0.66
+    },
+    "30": {
+      "name": "苍穹至高·海珀里昂",
+      "themeColor": 9747680,
+      "accentColor": 11202303,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "starfall_flash",
+        "prism_lattice",
+        "judgment_beam"
+      ],
+      "passive": "celestial_ward",
+      "damage": 1200,
+      "speed": 4.5,
+      "attackRange": 30,
+      "shootInterval": 0.6
+    },
+    "31": {
+      "name": "裂隙主宰",
+      "themeColor": 16747068,
+      "accentColor": 8014354,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "sand_burst",
+        "burrow_strike",
+        "flame_nova"
+      ],
+      "passive": "sand_armor",
+      "damage": 170,
+      "speed": 3.8,
+      "attackRange": 22,
+      "shootInterval": 1.3
+    },
+    "32": {
+      "name": "回廊守望者",
+      "themeColor": 9097471,
+      "accentColor": 2775690,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "prism_beam",
+        "emp_burst",
+        "rocket_barrage"
+      ],
+      "passive": "crystal_resonance",
+      "damage": 180,
+      "speed": 3.2,
+      "attackRange": 24,
+      "shootInterval": 1.5
+    },
+    "33": {
+      "name": "阶梯双生",
+      "themeColor": 12577023,
+      "accentColor": 3828362,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "frost_nova",
+        "tidal_wave",
+        "summon_scarabs"
+      ],
+      "passive": "frozen_aura",
+      "damage": 190,
+      "speed": 3,
+      "attackRange": 23,
+      "shootInterval": 1.4
+    },
+    "34": {
+      "name": "熔心母体",
+      "themeColor": 16730640,
+      "accentColor": 16760896,
+      "bodyGeo": "sphere",
+      "skills": [
+        "lava_pool",
+        "flame_nova",
+        "solar_lance"
+      ],
+      "passive": "molten_armor",
+      "damage": 210,
+      "speed": 2.6,
+      "attackRange": 24,
+      "shootInterval": 1.4
+    },
+    "35": {
+      "name": "崩解之核",
+      "themeColor": 12159743,
+      "accentColor": 4860538,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "reality_fracture",
+        "chaos_burst",
+        "entropy_wave"
+      ],
+      "passive": "void_shield",
+      "damage": 230,
+      "speed": 4.2,
+      "attackRange": 26,
+      "shootInterval": 1.2
+    },
+    "36": {
+      "name": "尖塔暴君",
+      "themeColor": 6742271,
+      "accentColor": 11197951,
+      "bodyGeo": "cone",
+      "skills": [
+        "aurora_beam",
+        "celestial_rain",
+        "starfall_flash"
+      ],
+      "passive": "celestial_ward",
+      "damage": 250,
+      "speed": 3.4,
+      "attackRange": 26,
+      "shootInterval": 1.25
+    },
+    "37": {
+      "name": "锈蚀监工",
+      "themeColor": 12618314,
+      "accentColor": 5913104,
+      "bodyGeo": "box",
+      "skills": [
+        "rocket_barrage",
+        "emp_burst",
+        "laser_sweep"
+      ],
+      "passive": "shield_regen",
+      "damage": 220,
+      "speed": 3.6,
+      "attackRange": 24,
+      "shootInterval": 1.3
+    },
+    "38": {
+      "name": "镜面之主",
+      "themeColor": 14674175,
+      "accentColor": 8030975,
+      "bodyGeo": "tetra",
+      "skills": [
+        "prism_beam",
+        "prism_lattice",
+        "dimensional_tear"
+      ],
+      "passive": "crystal_resonance",
+      "damage": 240,
+      "speed": 3,
+      "attackRange": 25,
+      "shootInterval": 1.35
+    },
+    "39": {
+      "name": "噬骨巨兽",
+      "themeColor": 14209200,
+      "accentColor": 6967344,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "bone_spear",
+        "raise_dead",
+        "plague_cloud"
+      ],
+      "passive": "undying_will",
+      "damage": 260,
+      "speed": 3.2,
+      "attackRange": 25,
+      "shootInterval": 1.3
+    },
+    "40": {
+      "name": "洪流之主",
+      "themeColor": 2805984,
+      "accentColor": 678522,
+      "bodyGeo": "sphere",
+      "skills": [
+        "tidal_wave",
+        "tentacle_slam",
+        "ink_cloud"
+      ],
+      "passive": "aquatic_healing",
+      "damage": 270,
+      "speed": 3,
+      "attackRange": 26,
+      "shootInterval": 1.25
+    },
+    "41": {
+      "name": "时之织者",
+      "themeColor": 10148095,
+      "accentColor": 3824282,
+      "bodyGeo": "icosahedron",
+      "skills": [
+        "time_slow",
+        "phase_shift",
+        "temporal_rift"
+      ],
+      "passive": "temporal_echo",
+      "damage": 280,
+      "speed": 3.4,
+      "attackRange": 26,
+      "shootInterval": 1.2
+    },
+    "42": {
+      "name": "虚空吞噬者",
+      "themeColor": 11037439,
+      "accentColor": 3807834,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "void_bolt",
+        "gravity_well",
+        "dimensional_tear"
+      ],
+      "passive": "void_shield",
+      "damage": 300,
+      "speed": 3.6,
+      "attackRange": 27,
+      "shootInterval": 1.15
+    },
+    "43": {
+      "name": "炽阳审判者",
+      "themeColor": 16765514,
+      "accentColor": 16747024,
+      "bodyGeo": "cone",
+      "skills": [
+        "judgment_beam",
+        "sunburst_barrage",
+        "halo_prison"
+      ],
+      "passive": "solar_crown",
+      "damage": 320,
+      "speed": 3.4,
+      "attackRange": 27,
+      "shootInterval": 1.15
+    },
+    "44": {
+      "name": "天梯守门人",
+      "themeColor": 16756832,
+      "accentColor": 8014352,
+      "bodyGeo": "box",
+      "skills": [
+        "solar_lance",
+        "radiant_nova",
+        "gold_meteor"
+      ],
+      "passive": "solar_crown",
+      "damage": 340,
+      "speed": 3.2,
+      "attackRange": 26,
+      "shootInterval": 1.2
+    },
+    "45": {
+      "name": "冰锯巨像",
+      "themeColor": 10479871,
+      "accentColor": 2779802,
+      "bodyGeo": "cylinder",
+      "skills": [
+        "ice_lance",
+        "frost_nova",
+        "aurora_curtain"
+      ],
+      "passive": "frozen_aura",
+      "damage": 360,
+      "speed": 3,
+      "attackRange": 27,
+      "shootInterval": 1.2
+    },
+    "46": {
+      "name": "熔炉主宰",
+      "themeColor": 16738848,
+      "accentColor": 16763968,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "blazing_pursuit",
+        "flame_nova",
+        "lava_pool"
+      ],
+      "passive": "molten_armor",
+      "damage": 380,
+      "speed": 3.4,
+      "attackRange": 28,
+      "shootInterval": 1.15
+    },
+    "47": {
+      "name": "钟摆守望者",
+      "themeColor": 7004159,
+      "accentColor": 1063530,
+      "bodyGeo": "torusknot",
+      "skills": [
+        "tentacle_slam",
+        "ink_cloud",
+        "tidal_wave"
+      ],
+      "passive": "aquatic_healing",
+      "damage": 400,
+      "speed": 3.2,
+      "attackRange": 28,
+      "shootInterval": 1.1
+    },
+    "48": {
+      "name": "星骸游魂",
+      "themeColor": 12110079,
+      "accentColor": 4864666,
+      "bodyGeo": "tetra",
+      "skills": [
+        "celestial_rain",
+        "starfall_flash",
+        "chaos_burst"
+      ],
+      "passive": "celestial_ward",
+      "damage": 430,
+      "speed": 3.6,
+      "attackRange": 28,
+      "shootInterval": 1.1
+    },
+    "49": {
+      "name": "断崖裁判",
+      "themeColor": 16769152,
+      "accentColor": 9071120,
+      "bodyGeo": "octahedron",
+      "skills": [
+        "judgment_beam",
+        "halo_prison",
+        "reality_fracture"
+      ],
+      "passive": "temporal_echo",
+      "damage": 470,
+      "speed": 3.6,
+      "attackRange": 29,
+      "shootInterval": 1.05
+    },
+    "50": {
+      "name": "终焉·原初之座",
+      "themeColor": 16777215,
+      "accentColor": 16730698,
+      "bodyGeo": "dodecahedron",
+      "skills": [
+        "reality_fracture",
+        "entropy_wave",
+        "judgment_beam"
+      ],
+      "passive": "undying_will",
+      "damage": 520,
+      "speed": 3.8,
+      "attackRange": 30,
+      "shootInterval": 1
+    }
+  }
+}

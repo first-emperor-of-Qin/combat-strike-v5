@@ -1,0 +1,35 @@
+{
+  "name": "combat-strike",
+  "version": "5.1.0",
+  "private": true,
+  "description": "枪战突击 · COMBAT STRIKE — 单人 PvE 战术射击战役（TypeScript / Vite / Three.js / Fastify / PostgreSQL）",
+  "type": "module",
+  "workspaces": [
+    "packages/content",
+    "packages/game-core",
+    "apps/api",
+    "apps/web"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "build": "npm run build -w @combat-strike/content && npm run build -w @combat-strike/game-core && npm run build -w @combat-strike/api && npm run build -w @combat-strike/web",
+    "typecheck": "npm run typecheck --workspaces --if-present",
+    "test": "npm run test -w @combat-strike/game-core && npm run test -w @combat-strike/content && npm run test -w @combat-strike/api",
+    "test:e2e": "npm run test:e2e -w @combat-strike/web",
+    "lint": "npm run typecheck",
+    "dev": "npm run dev -w @combat-strike/web",
+    "dev:api": "npm run dev -w @combat-strike/api",
+    "db:migrate": "npm run db:migrate -w @combat-strike/api",
+    "db:seed": "npm run db:seed -w @combat-strike/api",
+    "content:import": "node tools/content-import/import-legacy-content.mjs",
+    "content:verify": "npm run verify -w @combat-strike/content"
+  },
+  "devDependencies": {
+    "@types/node": "^22.10.2",
+    "playwright": "^1.65.1",
+    "typescript": "^5.7.2",
+    "vitest": "^2.1.8"
+  }
+}

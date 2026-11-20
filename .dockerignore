@@ -1,0 +1,15 @@
+node_modules
+dist
+build
+coverage
+.git
+.github
+*.log
+.env
+.env.*
+!.env.example
+apps/web/test-results
+apps/web/playwright-report
+tools/out
+baseline
+docs

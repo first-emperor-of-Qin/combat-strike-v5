@@ -1,0 +1,35 @@
+# Combat Strike — local PostgreSQL.
+#
+# Only one service: the database the API talks to.
+#   docker compose up -d
+#   docker compose ps
+#   docker compose logs -f postgres
+#   docker compose down          # keeps the data
+#   docker compose down -v       # deletes the data volume
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: combat-strike-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-postgres}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: ${POSTGRES_DB:-combat_strike}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - combat-strike-pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test:
+        [
+          "CMD-SHELL",
+          "pg_isready -U ${POSTGRES_USER:-postgres} -d ${POSTGRES_DB:-combat_strike}",
+        ]
+      interval: 5s
+      timeout: 5s
+      retries: 12
+      start_period: 5s
+
+volumes:
+  combat-strike-pgdata:
+    name: combat-strike-pgdata

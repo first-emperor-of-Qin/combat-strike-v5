@@ -1,0 +1,14 @@
+{
+  "molten_armor": { "desc": "受击时熔岩外壳硬化，持续减伤 18%", "damageReduction": 0.18, "tickPeriod": 1, "regenPerTick": 0 },
+  "crystal_resonance": { "desc": "水晶共鸣，每次脉冲回复 1.5% 生命", "damageReduction": 0, "tickPeriod": 1, "regenPerTick": 0.015 },
+  "sand_armor": { "desc": "沙之护甲持续减伤 12%，并缓慢恢复", "damageReduction": 0.12, "tickPeriod": 1, "regenPerTick": 0.01 },
+  "frozen_aura": { "desc": "冰冻光环环绕，命中者被减速", "damageReduction": 0.08, "tickPeriod": 1, "regenPerTick": 0.015 },
+  "shield_regen": { "desc": "护盾再生：每 6 秒恢复 10% 生命上限的护盾", "damageReduction": 0, "tickPeriod": 6, "regenPerTick": 0.1 },
+  "aquatic_healing": { "desc": "深海治愈：每次脉冲回复 2% 生命", "damageReduction": 0, "tickPeriod": 1, "regenPerTick": 0.02 },
+  "temporal_echo": { "desc": "时间回响：受到的伤害有 15% 被延迟返还", "damageReduction": 0.15, "tickPeriod": 1, "regenPerTick": 0 },
+  "undying_will": { "desc": "不死意志：生命低于 30% 时狂暴，移速与伤害提升 50%", "damageReduction": 0.05, "tickPeriod": 1, "regenPerTick": 0 },
+  "void_shield": { "desc": "虚空护盾：持续免疫 90% 伤害", "damageReduction": 0.9, "tickPeriod": 1, "regenPerTick": 0 },
+  "eternal_cycle": { "desc": "永恒循环：每次脉冲回复 3% 生命并召唤援军", "damageReduction": 0.05, "tickPeriod": 1, "regenPerTick": 0.03 },
+  "solar_crown": { "desc": "曦金王冠：削减 15% 伤害并强化自身攻势", "damageReduction": 0.15, "tickPeriod": 1, "regenPerTick": 0 },
+  "celestial_ward": { "desc": "天穹守护：受击后生成护盾，减免 20% 伤害", "damageReduction": 0.2, "tickPeriod": 1, "regenPerTick": 0 }
+}

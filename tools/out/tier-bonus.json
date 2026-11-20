@@ -1,0 +1,86 @@
+{
+  "ok": true,
+  "data": {
+    "1": {
+      "hp": 8000,
+      "soulPower": 2000,
+      "moveSpeed": 0.5,
+      "energy": 20,
+      "critRate": 1,
+      "hpRegen": 80,
+      "energyRegen": 1
+    },
+    "2": {
+      "hp": 15000,
+      "soulPower": 3500,
+      "moveSpeed": 0.8,
+      "energy": 30,
+      "critRate": 2,
+      "hpRegen": 150,
+      "energyRegen": 2
+    },
+    "3": {
+      "hp": 25000,
+      "soulPower": 5500,
+      "moveSpeed": 1.1,
+      "energy": 45,
+      "critRate": 3,
+      "hpRegen": 280,
+      "energyRegen": 3
+    },
+    "4": {
+      "hp": 40000,
+      "soulPower": 8000,
+      "moveSpeed": 1.4,
+      "energy": 60,
+      "critRate": 4,
+      "hpRegen": 450,
+      "energyRegen": 4
+    },
+    "5": {
+      "hp": 60000,
+      "soulPower": 12000,
+      "moveSpeed": 1.7,
+      "energy": 80,
+      "critRate": 5,
+      "hpRegen": 700,
+      "energyRegen": 6
+    },
+    "6": {
+      "hp": 90000,
+      "soulPower": 17000,
+      "moveSpeed": 2,
+      "energy": 110,
+      "critRate": 6,
+      "hpRegen": 1100,
+      "energyRegen": 8
+    },
+    "7": {
+      "hp": 130000,
+      "soulPower": 24000,
+      "moveSpeed": 2.3,
+      "energy": 150,
+      "critRate": 7,
+      "hpRegen": 1600,
+      "energyRegen": 11
+    },
+    "8": {
+      "hp": 180000,
+      "soulPower": 32000,
+      "moveSpeed": 2.6,
+      "energy": 200,
+      "critRate": 8,
+      "hpRegen": 2300,
+      "energyRegen": 15
+    },
+    "9": {
+      "hp": 250000,
+      "soulPower": 45000,
+      "moveSpeed": 3,
+      "energy": 280,
+      "critRate": 10,
+      "hpRegen": 3200,
+      "energyRegen": 20
+    }
+  }
+}
