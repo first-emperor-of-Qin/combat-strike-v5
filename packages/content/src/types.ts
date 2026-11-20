@@ -62,6 +62,64 @@ export interface WeaponDef {
   stats: WeaponStats;
 }
 
+/**
+ * An elite ability.
+ *
+ * The legacy implemented 18 of the 33 configured elite abilities and silently
+ * did nothing for the other 15. These 18 are ported here with their original
+ * numbers; the remaining 15 reuse the boss skill registry.
+ */
+export interface EliteSkillDef {
+  id: string;
+  /** Display name. */
+  name: string;
+  /** Behaviour archetype. */
+  kind:
+    | 'dash'
+    | 'pull'
+    | 'blink'
+    | 'cloud'
+    | 'leap'
+    | 'transmute'
+    | 'blast'
+    | 'volley'
+    | 'quake'
+    | 'bind'
+    | 'scatter';
+  /** Distance covered by a dash, in world units. */
+  dash?: number;
+  /** Distance the player is pulled, in world units. */
+  pull?: number;
+  /** Radius the elite teleports to, in world units. */
+  blink?: number;
+  /** Radius of the created cloud or blast, in world units. */
+  radius?: number;
+  /** Lifetime of the created cloud, in seconds. */
+  duration?: number;
+  /** Distance within which the hit lands. */
+  hitRange?: number;
+  /** Damage multiplier applied to the elite's damage. */
+  damageMult: number;
+  /** Slow applied to the player. */
+  slow?: { duration: number; amount: number };
+  /** Root applied to the player. */
+  root?: { duration: number };
+  /** Burn applied to the player. */
+  burn?: { duration: number };
+  /** Number of projectiles. */
+  projectiles?: number;
+  /** Half-angle spread between projectiles, in radians. */
+  spread?: number;
+  /** Projectile speed, in world units per second. */
+  speed?: number;
+  /** Projectile lifetime, in seconds. */
+  life?: number;
+  /** Projectile hit radius, in world units. */
+  radius2?: number;
+  /** Distance within which the slow lands. */
+  slowRange?: number;
+}
+
 export interface EnemyDef {
   name: string;
   desc: string;

@@ -14,12 +14,12 @@
 
 ## 如何阅读本文件
 
-- 第 1～4 节是**数据台账**：50 关、44 武器、42 BOSS 技能、12 BOSS 被动，机器生成，勿手改。
-- 第 5 节是**死配置对照**：旧版写了但从未被读取的配置项去了哪里。
-- 第 6 节是**机制保护清单**：旧版行为 → 新模块 → 回归测试三元对照，是防回归的核心。
-- 第 7 节是**已修复缺陷**：C1～C30，每条含现象、旧代码位置、影响范围、修复方式、验证方式。
-- 第 8 节是**未修复 / 需审批**：属于设计变更而非缺陷，未在本次迁移中改动。
-- 第 9 节是**后续提案**：会改变数值、难度曲线或奖励经济的改动，需产品审批。
+- 第 1～3 节是**数据台账**：50 关、44 武器、42 BOSS 技能、12 BOSS 被动，机器生成，勿手改。
+- 第 4 节是**死配置对照**：旧版写了但从未被读取的配置项去了哪里。
+- 第 5 节是**机制保护清单**：旧版行为 → 新模块 → 回归测试三元对照，是防回归的核心。
+- 第 6 节是**已修复缺陷**：C1～C30，每条含现象、旧代码位置、影响范围、修复方式、验证方式。
+- 第 7 节是**未修复 / 需审批**：属于设计变更而非缺陷，未在本次迁移中改动。
+- 第 8 节是**后续提案**：会改变数值、难度曲线或奖励经济的改动，需产品审批。
 
 ## 数据来源与复现
 
@@ -39,58 +39,56 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 新实现位置指向 `packages/content/src/generated/levels.ts` 中该关数据块的起始行号。
 
 | 旧 ID | 名称 | 章节 | 新实现位置 | 地形/机关 | BOSS | 验证状态 |
-| --- | --- | --- | --- | --- | --- | --- |
-| 1 | 熔岩炼狱 | 1 异境试炼 | `packages/content/src/generated/levels.ts:11` | 地形 flat | 炎魔之王·伊格尼斯（技能 fireball_volley / lava_pool / flame_nova；被动 无） | 通过 |
-| 2 | 深渊水域 | 1 异境试炼 | `packages/content/src/generated/levels.ts:130` | 地形 flat | 深渊利维坦（技能 crystal_shards / web_entangle / prism_beam；被动 无） | 通过 |
-| 3 | 时空裂隙 | 1 异境试炼 | `packages/content/src/generated/levels.ts:249` | 地形 flat | 时间领主·克洛诺斯（技能 sand_burst / burrow_strike / summon_scarabs；被动 无） | 通过 |
-| 4 | 机械坟场 | 1 异境试炼 | `packages/content/src/generated/levels.ts:368` | 地形 flat | 机械暴君·零号（技能 ice_lance / aurora_beam / frost_nova；被动 无） | 通过 |
-| 5 | 毒雾沼泽 | 1 异境试炼 | `packages/content/src/generated/levels.ts:487` | 地形 flat | 腐化树灵·耶克（技能 rocket_barrage / laser_sweep / emp_burst；被动 无） | 通过 |
-| 6 | 冰封王座 | 2 元素试炼 | `packages/content/src/generated/levels.ts:606` | 地形 flat | 霜之哀伤·弗罗斯特（技能 ink_cloud / tentacle_slam / tidal_wave；被动 无） | 通过 |
-| 7 | 雷暴高原 | 2 元素试炼 | `packages/content/src/generated/levels.ts:725` | 地形 flat | 雷霆之主·托尔（技能 time_slow / phase_shift / temporal_rift；被动 无） | 通过 |
-| 8 | 亡灵墓园 | 2 元素试炼 | `packages/content/src/generated/levels.ts:844` | 地形 flat | 骸骨大帝·奥斯（技能 plague_cloud / bone_spear / raise_dead；被动 无） | 通过 |
-| 9 | 炼金工坊 | 2 元素试炼 | `packages/content/src/generated/levels.ts:963` | 地形 flat | 黄金贤者·赫尔墨斯（技能 void_bolt / gravity_well / dimensional_tear；被动 无） | 通过 |
-| 10 | 虚空终焉 | 2 元素试炼 | `packages/content/src/generated/levels.ts:1082` | 地形 flat | 万物终结者·奈特（技能 chaos_burst / reality_fracture / entropy_wave；被动 无） | 通过 |
-| 11 | 凛冬哨站 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1201` | 地形 flat | 凛冬将军·布伦希（技能 ice_lance / frost_nova / aurora_beam；被动 无） | 通过 |
-| 12 | 冰晶回廊 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1320` | 地形 flat | 冰晶女王·格蕾塔（技能 crystal_shards / prism_beam / web_entangle；被动 无） | 通过 |
-| 13 | 寒渊裂口 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1439` | 地形 flat | 寒渊领主·纳迦（技能 tidal_wave / ink_cloud / tentacle_slam；被动 无） | 通过 |
-| 14 | 永冻祭坛 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1558` | 地形 flat | 永冻时守·克罗诺斯二世（技能 time_slow / phase_shift / temporal_rift；被动 无） | 通过 |
-| 15 | 霜寂王座 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1677` | 地形 flat | 霜寂主宰·瓦尔基里（技能 ice_lance / frost_nova / rocket_barrage；被动 无） | 通过（纯 BOSS） |
-| 16 | 裂隙前厅 | 4 虚空核心 | `packages/content/src/generated/levels.ts:1796` | 地形 flat | 虚空游魂·厄瑞玻斯（技能 void_bolt / gravity_well / dimensional_tear；被动 无） | 通过 |
-| 17 | 熵能回廊 | 4 虚空核心 | `packages/content/src/generated/levels.ts:1915` | 地形 flat | 熵能使者·卡俄斯（技能 entropy_wave / chaos_burst / reality_fracture；被动 无） | 通过 |
-| 18 | 虚无深渊 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2034` | 地形 flat | 虚空织影·尼克斯（技能 void_bolt / phase_shift / prism_beam；被动 无） | 通过 |
-| 19 | 奇点之厅 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2153` | 地形 flat | 混沌先知·普罗米（技能 chaos_burst / reality_fracture / temporal_rift；被动 无） | 通过 |
-| 20 | 终焉核心 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2272` | 地形 flat | 终焉奇点·阿撒托斯（技能 void_bolt / gravity_well / entropy_wave；被动 无） | 通过（纯 BOSS） |
-| 21 | 曦光集市 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2391` | 地形 flat | 曦金守卫·赫利俄斯（技能 solar_lance / gold_meteor / sunburst_barrage；被动 无） | 通过 |
-| 22 | 鎏金回廊 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2510` | 地形 flat | 鎏金织匠·弥达斯（技能 radiant_nova / halo_prison / solar_lance；被动 无） | 通过 |
-| 23 | 日冕水道 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2629` | 地形 flat | 日冕祭司·阿顿（技能 judgment_beam / celestial_rain / radiant_nova；被动 无） | 通过 |
-| 24 | 圣金天阶 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2748` | 地形 flat | 圣金审判官·塞拉芬（技能 blazing_pursuit / gold_meteor / aurora_curtain；被动 无） | 通过 |
-| 25 | 太阳王庭 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2867` | 地形 flat | 太阳君王·赫利安（技能 sunburst_barrage / divine_summon / judgment_beam；被动 无） | 通过（纯 BOSS） |
-| 26 | 云端街衢 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:2986` | 地形 flat | 苍穹哨卫·泽菲罗斯（技能 aurora_curtain / solar_lance / celestial_rain；被动 无） | 通过 |
-| 27 | 天穹十字廊 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3105` | 地形 flat | 天穹执政官·乌拉诺斯（技能 starfall_flash / halo_prison / radiant_nova；被动 无） | 通过 |
-| 28 | 极光庭园 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3224` | 地形 flat | 极光女王·欧若拉（技能 aurora_curtain / prism_lattice / celestial_rain；被动 无） | 通过 |
-| 29 | 星辉回环 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3343` | 地形 flat | 星辉领主·阿斯特赖俄斯（技能 divine_summon / starfall_flash / sunburst_barrage；被动 无） | 通过 |
-| 30 | 苍穹圣座 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3462` | 地形 flat | 苍穹至高·海珀里昂（技能 starfall_flash / prism_lattice / judgment_beam；被动 无） | 通过（纯 BOSS） |
-| 31 | 塌陷峡谷 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3581` | 地形 canyon；悬崖 1；机关 2（spike、laser）；弹跳台 1；增益 2 | 裂隙主宰（技能 sand_burst / burrow_strike / flame_nova；被动 无） | 通过（文案已覆盖；空洞边界已修正） |
-| 32 | 悬空回廊 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3749` | 地形 ramp；悬崖 2；机关 1（door）；弹跳台 1；增益 2 | 回廊守望者（技能 prism_beam / emp_burst / rocket_barrage；被动 无） | 通过（文案已覆盖） |
-| 33 | 双生阶梯 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3914` | 地形 terraces；悬崖 2；机关 2（crusher）；弹跳台 1；增益 2 | 阶梯双生（技能 frost_nova / tidal_wave / summon_scarabs；被动 无） | 通过（文案已覆盖） |
-| 34 | 熔心深井 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:4089` | 地形 bowl；悬崖 1；机关 3（steam、spike）；弹跳台 1；增益 3 | 熔心母体（技能 lava_pool / flame_nova / solar_lance；被动 无） | 通过（文案已覆盖） |
-| 35 | 崩解平台 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:4270` | 地形 flat；悬崖 5；机关 1（saw）；弹跳台 2；增益 2 | 崩解之核（技能 reality_fracture / chaos_burst / entropy_wave；被动 无） | 通过（文案已覆盖；C17 未修复） |
-| 36 | 风暴尖塔 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4459` | 地形 pyramid；悬崖 1；机关 3（laser、saw）；弹跳台 1；增益 2 | 尖塔暴君（技能 aurora_beam / celestial_rain / starfall_flash；被动 无） | 通过（文案已覆盖） |
-| 37 | 锈蚀升降井 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4638` | 地形 slope；悬崖 1；机关 3（door、crusher）；弹跳台 1；增益 2 | 锈蚀监工（技能 rocket_barrage / emp_burst / laser_sweep；被动 无） | 通过（文案已覆盖） |
-| 38 | 镜面迷廊 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4816` | 地形 flat；机关 4（laser）；弹跳台 2；增益 2 | 镜面之主（技能 prism_beam / prism_lattice / dimensional_tear；被动 无） | 通过（文案已覆盖；旧版无空洞条目） |
-| 39 | 噬骨裂谷 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:5004` | 地形 canyon；悬崖 1；机关 3（spike、steam）；弹跳台 1；增益 2 | 噬骨巨兽（技能 bone_spear / raise_dead / plague_cloud；被动 无） | 通过（文案已覆盖；空洞边界已修正） |
-| 40 | 洪流回旋 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:5180` | 地形 bowl；悬崖 1；机关 3（steam、saw）；弹跳台 1；增益 2 | 洪流之主（技能 tidal_wave / tentacle_slam / ink_cloud；被动 无） | 通过（文案已覆盖） |
-| 41 | 时间回廊 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5357` | 地形 terraces；悬崖 1；机关 2（saw）；弹跳台 1；增益 2 | 时之织者（技能 time_slow / phase_shift / temporal_rift；被动 无） | 通过（文案已覆盖） |
-| 42 | 虚空浮岛 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5526` | 地形 flat；悬崖 4；机关 1（laser）；弹跳台 2；增益 2 | 虚空吞噬者（技能 void_bolt / gravity_well / dimensional_tear；被动 无） | 通过（文案已覆盖） |
-| 43 | 炽阳审判庭 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5709` | 地形 pyramid；机关 4（laser）；弹跳台 1；增益 2 | 炽阳审判者（技能 judgment_beam / sunburst_barrage / halo_prison；被动 无） | 通过（文案已覆盖；旧版无空洞条目） |
-| 44 | 坍缩天梯 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5891` | 地形 slope；悬崖 1；机关 3（crusher、spike）；弹跳台 1；增益 2 | 天梯守门人（技能 solar_lance / radiant_nova / gold_meteor；被动 无） | 通过（文案已覆盖） |
-| 45 | 终末冰锯矿 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:6068` | 地形 hills；悬崖 1；机关 3（saw）；弹跳台 1；增益 2 | 冰锯巨像（技能 ice_lance / frost_nova / aurora_curtain；被动 无） | 通过（文案已覆盖） |
-| 46 | 炼狱熔炉 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6247` | 地形 flat；机关 5（steam、spike）；弹跳台 1；增益 2 | 熔炉主宰（技能 blazing_pursuit / flame_nova / lava_pool；被动 无） | 通过（文案已覆盖；旧版无空洞条目） |
-| 47 | 深渊钟摆 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6432` | 地形 bowl；悬崖 1；机关 3（saw、steam）；弹跳台 1；增益 2 | 钟摆守望者（技能 tentacle_slam / ink_cloud / tidal_wave；被动 无） | 通过（文案已覆盖） |
-| 48 | 星骸回廊 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6610` | 地形 slope；悬崖 2；机关 3（laser、crusher）；弹跳台 2；增益 2 | 星骸游魂（技能 celestial_rain / starfall_flash / chaos_burst；被动 无） | 通过（文案已覆盖） |
-| 49 | 秩序断崖 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6802` | 地形 canyon；悬崖 1；机关 4（door、laser、saw）；弹跳台 1；增益 2 | 断崖裁判（技能 judgment_beam / halo_prison / reality_fracture；被动 无） | 通过（文案已覆盖） |
-| 50 | 终焉王座 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6991` | 地形 pyramid；悬崖 4；机关 5（spike、laser、crusher、saw）；弹跳台 2；增益 4 | 终焉·原初之座（技能 reality_fracture / entropy_wave / judgment_beam；被动 无） | 通过（文案已覆盖） |
-
+| 1 | 熔岩炼狱 | 1 异境试炼 | `packages/content/src/generated/levels.ts:11` | 地形 flat | 炎魔之王·伊格尼斯（技能 炎弹齐射（fireball_volley）、熔岩池（lava_pool）、烈焰新星（flame_nova）；被动 熔岩护甲（molten_armor）） | 精英技 熔岩突进；通过 |
+| 2 | 深渊水域 | 1 异境试炼 | `packages/content/src/generated/levels.ts:131` | 地形 flat | 深渊利维坦（技能 水晶碎片（crystal_shards）、蛛网束缚（web_entangle）、棱镜光束（prism_beam）；被动 水晶共鸣（crystal_resonance）） | 精英技 漩涡牵引；通过 |
+| 3 | 时空裂隙 | 1 异境试炼 | `packages/content/src/generated/levels.ts:251` | 地形 flat | 时间领主·克洛诺斯（技能 沙暴喷射（sand_burst）、潜地突袭（burrow_strike）、召唤圣甲虫（summon_scarabs）；被动 沙之护甲（sand_armor）） | 精英技 闪现打击；通过 |
+| 4 | 机械坟场 | 1 异境试炼 | `packages/content/src/generated/levels.ts:371` | 地形 flat | 机械暴君·零号（技能 冰枪（ice_lance）、极光束（aurora_beam）、寒冰新星（frost_nova）；被动 冰冻光环（frozen_aura）） | 精英技 冲锋盾击；通过 |
+| 5 | 毒雾沼泽 | 1 异境试炼 | `packages/content/src/generated/levels.ts:491` | 地形 flat | 腐化树灵·耶克（技能 火箭弹幕（rocket_barrage）、激光横扫（laser_sweep）、EMP爆发（emp_burst）；被动 护盾再生（shield_regen）） | 精英技 诅咒毒云；通过 |
+| 6 | 冰封王座 | 2 元素试炼 | `packages/content/src/generated/levels.ts:611` | 地形 flat | 霜之哀伤·弗罗斯特（技能 墨汁云（ink_cloud）、触手拍击（tentacle_slam）、潮汐波（tidal_wave）；被动 深海治愈（aquatic_healing）） | 精英技 寒冰突刺；通过 |
+| 7 | 雷暴高原 | 2 元素试炼 | `packages/content/src/generated/levels.ts:731` | 地形 flat | 雷霆之主·托尔（技能 时间减速（time_slow）、相位转移（phase_shift）、时空裂隙（temporal_rift）；被动 时间回响（temporal_echo）） | 精英技 雷霆跳跃；通过 |
+| 8 | 亡灵墓园 | 2 元素试炼 | `packages/content/src/generated/levels.ts:851` | 地形 flat | 骸骨大帝·奥斯（技能 瘟疫云（plague_cloud）、骨矛（bone_spear）、亡灵召唤（raise_dead）；被动 不死意志（undying_will）） | 精英技 死亡冲锋；通过 |
+| 9 | 炼金工坊 | 2 元素试炼 | `packages/content/src/generated/levels.ts:971` | 地形 flat | 黄金贤者·赫尔墨斯（技能 虚空弹（void_bolt）、重力井（gravity_well）、维度撕裂（dimensional_tear）；被动 虚空护盾（void_shield）） | 精英技 混沌嬗变；通过 |
+| 10 | 虚空终焉 | 2 元素试炼 | `packages/content/src/generated/levels.ts:1091` | 地形 flat | 万物终结者·奈特（技能 混沌爆发（chaos_burst）、现实断裂（reality_fracture）、熵增之波（entropy_wave）；被动 永恒循环（eternal_cycle）） | 精英技 虚空爆裂；通过 |
+| 11 | 凛冬哨站 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1211` | 地形 flat | 凛冬将军·布伦希（技能 冰枪（ice_lance）、寒冰新星（frost_nova）、极光束（aurora_beam）；被动 冰冻光环（frozen_aura）） | 精英技 寒霜突刺；通过 |
+| 12 | 冰晶回廊 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1331` | 地形 flat | 冰晶女王·格蕾塔（技能 水晶碎片（crystal_shards）、棱镜光束（prism_beam）、蛛网束缚（web_entangle）；被动 水晶共鸣（crystal_resonance）） | 精英技 闪现突袭；通过 |
+| 13 | 寒渊裂口 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1451` | 地形 flat | 寒渊领主·纳迦（技能 潮汐波（tidal_wave）、墨汁云（ink_cloud）、触手拍击（tentacle_slam）；被动 深海治愈（aquatic_healing）） | 精英技 漩涡牵引；通过 |
+| 14 | 永冻祭坛 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1571` | 地形 flat | 永冻时守·克罗诺斯二世（技能 时间减速（time_slow）、相位转移（phase_shift）、时空裂隙（temporal_rift）；被动 时间回响（temporal_echo）） | 精英技 相位突袭；通过 |
+| 15 | 霜寂王座 | 3 霜寂冰原 | `packages/content/src/generated/levels.ts:1691` | 地形 flat | 霜寂主宰·瓦尔基里（技能 冰枪（ice_lance）、寒冰新星（frost_nova）、火箭弹幕（rocket_barrage）；被动 冰冻光环（frozen_aura）） | 纯 BOSS；精英技 绝对零度突刺；通过 |
+| 16 | 裂隙前厅 | 4 虚空核心 | `packages/content/src/generated/levels.ts:1811` | 地形 flat | 虚空游魂·厄瑞玻斯（技能 虚空弹（void_bolt）、重力井（gravity_well）、维度撕裂（dimensional_tear）；被动 虚空护盾（void_shield）） | 精英技 虚空爆裂；通过 |
+| 17 | 熵能回廊 | 4 虚空核心 | `packages/content/src/generated/levels.ts:1931` | 地形 flat | 熵能使者·卡俄斯（技能 熵增之波（entropy_wave）、混沌爆发（chaos_burst）、现实断裂（reality_fracture）；被动 永恒循环（eternal_cycle）） | 精英技 混沌嬗变；通过 |
+| 18 | 虚无深渊 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2051` | 地形 flat | 虚空织影·尼克斯（技能 虚空弹（void_bolt）、相位转移（phase_shift）、棱镜光束（prism_beam）；被动 虚空护盾（void_shield）） | 精英技 虚空闪现；通过 |
+| 19 | 奇点之厅 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2171` | 地形 flat | 混沌先知·普罗米（技能 混沌爆发（chaos_burst）、现实断裂（reality_fracture）、时空裂隙（temporal_rift）；被动 永恒循环（eternal_cycle）） | 精英技 湮灭冲击；通过 |
+| 20 | 终焉核心 | 4 虚空核心 | `packages/content/src/generated/levels.ts:2291` | 地形 flat | 终焉奇点·阿撒托斯（技能 虚空弹（void_bolt）、重力井（gravity_well）、熵增之波（entropy_wave）；被动 虚空护盾（void_shield）） | 纯 BOSS；精英技 终焉爆裂；通过 |
+| 21 | 曦光集市 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2411` | 地形 flat | 曦金守卫·赫利俄斯（技能 曦金长枪（solar_lance）、鎏金天陨（gold_meteor）、烈日弹幕（sunburst_barrage）；被动 曦金王冠（solar_crown）） | 精英技 曦光突刺；通过 |
+| 22 | 鎏金回廊 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2531` | 地形 flat | 鎏金织匠·弥达斯（技能 圣辉新星（radiant_nova）、光环囚笼（halo_prison）、曦金长枪（solar_lance）；被动 天穹守护（celestial_ward）） | 精英技 曦金三连矢；通过 |
+| 23 | 日冕水道 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2651` | 地形 flat | 日冕祭司·阿顿（技能 审判圣径（judgment_beam）、天穹星雨（celestial_rain）、圣辉新星（radiant_nova）；被动 曦金王冠（solar_crown）） | 精英技 鎏金震击；通过 |
+| 24 | 圣金天阶 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2771` | 地形 flat | 圣金审判官·塞拉芬（技能 烈阳突袭（blazing_pursuit）、鎏金天陨（gold_meteor）、极光帷幕（aurora_curtain）；被动 天穹守护（celestial_ward）） | 精英技 蜃光奇袭；通过 |
+| 25 | 太阳王庭 | 5 曦金古城 | `packages/content/src/generated/levels.ts:2891` | 地形 flat | 太阳君王·赫利安（技能 烈日弹幕（sunburst_barrage）、圣辉召唤（divine_summon）、审判圣径（judgment_beam）；被动 曦金王冠（solar_crown）） | 纯 BOSS；精英技 金乌掠影；通过 |
+| 26 | 云端街衢 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3011` | 地形 flat | 苍穹哨卫·泽菲罗斯（技能 极光帷幕（aurora_curtain）、曦金长枪（solar_lance）、天穹星雨（celestial_rain）；被动 天穹守护（celestial_ward）） | 精英技 极光贯枪；通过 |
+| 27 | 天穹十字廊 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3131` | 地形 flat | 天穹执政官·乌拉诺斯（技能 星坠闪现（starfall_flash）、光环囚笼（halo_prison）、圣辉新星（radiant_nova）；被动 曦金王冠（solar_crown）） | 精英技 天穹坠击；通过 |
+| 28 | 极光庭园 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3251` | 地形 flat | 极光女王·欧若拉（技能 极光帷幕（aurora_curtain）、棱镜矩阵（prism_lattice）、天穹星雨（celestial_rain）；被动 天穹守护（celestial_ward）） | 精英技 光环禁锢；通过 |
+| 29 | 星辉回环 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3371` | 地形 flat | 星辉领主·阿斯特赖俄斯（技能 圣辉召唤（divine_summon）、星坠闪现（starfall_flash）、烈日弹幕（sunburst_barrage）；被动 曦金王冠（solar_crown）） | 精英技 星屑散射；通过 |
+| 30 | 苍穹圣座 | 6 苍穹圣域 | `packages/content/src/generated/levels.ts:3491` | 地形 flat | 苍穹至高·海珀里昂（技能 星坠闪现（starfall_flash）、棱镜矩阵（prism_lattice）、审判圣径（judgment_beam）；被动 天穹守护（celestial_ward）） | 纯 BOSS；精英技 炽光散界；通过 |
+| 31 | 塌陷峡谷 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3611` | 地形 canyon；悬崖 1；机关 2（spike、laser）；弹跳台 1；增益 2 | 裂隙主宰（技能 沙暴喷射（sand_burst）、潜地突袭（burrow_strike）、烈焰新星（flame_nova）；被动 沙之护甲（sand_armor）） | 精英技 猛冲突进；通过 |
+| 32 | 悬空回廊 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3780` | 地形 ramp；悬崖 2；机关 1（door）；弹跳台 1；增益 2 | 回廊守望者（技能 棱镜光束（prism_beam）、EMP爆发（emp_burst）、火箭弹幕（rocket_barrage）；被动 水晶共鸣（crystal_resonance）） | 精英技 寒冰新星；通过 |
+| 33 | 双生阶梯 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:3946` | 地形 terraces；悬崖 2；机关 2（crusher、crusher）；弹跳台 1；增益 2 | 阶梯双生（技能 寒冰新星（frost_nova）、潮汐波（tidal_wave）、召唤圣甲虫（summon_scarabs）；被动 冰冻光环（frozen_aura）） | 精英技 漩涡牵引；通过 |
+| 34 | 熔心深井 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:4122` | 地形 bowl；悬崖 1；机关 3（steam、steam、spike）；弹跳台 1；增益 3 | 熔心母体（技能 熔岩池（lava_pool）、烈焰新星（flame_nova）、曦金长枪（solar_lance）；被动 熔岩护甲（molten_armor）） | 精英技 烈焰新星；通过 |
+| 35 | 崩解平台 | 7 裂隙纪元 · 崩塌之地 | `packages/content/src/generated/levels.ts:4304` | 地形 flat；悬崖 5；机关 1（saw）；弹跳台 2；增益 2 | 崩解之核（技能 现实断裂（reality_fracture）、混沌爆发（chaos_burst）、熵增之波（entropy_wave）；被动 虚空护盾（void_shield）） | 精英技 维度撕裂；通过 |
+| 36 | 风暴尖塔 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4494` | 地形 pyramid；悬崖 1；机关 3（laser、laser、saw）；弹跳台 1；增益 2 | 尖塔暴君（技能 极光束（aurora_beam）、天穹星雨（celestial_rain）、星坠闪现（starfall_flash）；被动 天穹守护（celestial_ward）） | 精英技 EMP爆发；通过 |
+| 37 | 锈蚀升降井 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4674` | 地形 slope；悬崖 1；机关 3（door、door、crusher）；弹跳台 1；增益 2 | 锈蚀监工（技能 火箭弹幕（rocket_barrage）、EMP爆发（emp_burst）、激光横扫（laser_sweep）；被动 护盾再生（shield_regen）） | 精英技 猛冲突进；通过 |
+| 38 | 镜面迷廊 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:4853` | 地形 flat；机关 4（laser、laser、laser、laser）；弹跳台 2；增益 2 | 镜面之主（技能 棱镜光束（prism_beam）、棱镜矩阵（prism_lattice）、维度撕裂（dimensional_tear）；被动 水晶共鸣（crystal_resonance）） | 精英技 棱镜光束；通过 |
+| 39 | 噬骨裂谷 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:5042` | 地形 canyon；悬崖 1；机关 3（spike、spike、steam）；弹跳台 1；增益 2 | 噬骨巨兽（技能 骨矛（bone_spear）、亡灵召唤（raise_dead）、瘟疫云（plague_cloud）；被动 不死意志（undying_will）） | 精英技 亡灵召唤；通过 |
+| 40 | 洪流回旋 | 8 裂隙纪元 · 机关回廊 | `packages/content/src/generated/levels.ts:5219` | 地形 bowl；悬崖 1；机关 3（steam、steam、saw）；弹跳台 1；增益 2 | 洪流之主（技能 潮汐波（tidal_wave）、触手拍击（tentacle_slam）、墨汁云（ink_cloud）；被动 深海治愈（aquatic_healing）） | 精英技 漩涡牵引；通过 |
+| 41 | 时间回廊 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5397` | 地形 terraces；悬崖 1；机关 2（saw、saw）；弹跳台 1；增益 2 | 时之织者（技能 时间减速（time_slow）、相位转移（phase_shift）、时空裂隙（temporal_rift）；被动 时间回响（temporal_echo）） | 精英技 时间减速；通过 |
+| 42 | 虚空浮岛 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5567` | 地形 flat；悬崖 4；机关 1（laser）；弹跳台 2；增益 2 | 虚空吞噬者（技能 虚空弹（void_bolt）、重力井（gravity_well）、维度撕裂（dimensional_tear）；被动 虚空护盾（void_shield）） | 精英技 重力井；通过 |
+| 43 | 炽阳审判庭 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5751` | 地形 pyramid；机关 4（laser、laser、laser、laser）；弹跳台 1；增益 2 | 炽阳审判者（技能 审判圣径（judgment_beam）、烈日弹幕（sunburst_barrage）、光环囚笼（halo_prison）；被动 曦金王冠（solar_crown）） | 精英技 烈日弹幕；通过 |
+| 44 | 坍缩天梯 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:5934` | 地形 slope；悬崖 1；机关 3（crusher、crusher、spike）；弹跳台 1；增益 2 | 天梯守门人（技能 曦金长枪（solar_lance）、圣辉新星（radiant_nova）、鎏金天陨（gold_meteor）；被动 曦金王冠（solar_crown）） | 精英技 鎏金天陨；通过 |
+| 45 | 终末冰锯矿 | 9 裂隙纪元 · 法则扭曲 | `packages/content/src/generated/levels.ts:6112` | 地形 hills；悬崖 1；机关 3（saw、saw、saw）；弹跳台 1；增益 2 | 冰锯巨像（技能 冰枪（ice_lance）、寒冰新星（frost_nova）、极光帷幕（aurora_curtain）；被动 冰冻光环（frozen_aura）） | 精英技 寒冰新星；通过 |
+| 46 | 炼狱熔炉 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6292` | 地形 flat；机关 5（steam、steam、steam、steam、spike）；弹跳台 1；增益 2 | 熔炉主宰（技能 烈阳突袭（blazing_pursuit）、烈焰新星（flame_nova）、熔岩池（lava_pool）；被动 熔岩护甲（molten_armor）） | 精英技 烈阳突袭；通过 |
+| 47 | 深渊钟摆 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6478` | 地形 bowl；悬崖 1；机关 3（saw、saw、steam）；弹跳台 1；增益 2 | 钟摆守望者（技能 触手拍击（tentacle_slam）、墨汁云（ink_cloud）、潮汐波（tidal_wave）；被动 深海治愈（aquatic_healing）） | 精英技 触手拍击；通过 |
+| 48 | 星骸回廊 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6657` | 地形 slope；悬崖 2；机关 3（laser、laser、crusher）；弹跳台 2；增益 2 | 星骸游魂（技能 天穹星雨（celestial_rain）、星坠闪现（starfall_flash）、混沌爆发（chaos_burst）；被动 天穹守护（celestial_ward）） | 精英技 星坠闪现；通过 |
+| 49 | 秩序断崖 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:6850` | 地形 canyon；悬崖 1；机关 4（door、laser、laser、saw）；弹跳台 1；增益 2 | 断崖裁判（技能 审判圣径（judgment_beam）、光环囚笼（halo_prison）、现实断裂（reality_fracture）；被动 时间回响（temporal_echo）） | 精英技 审判圣径；通过 |
+| 50 | 终焉王座 | 10 裂隙纪元 · 终焉王座 | `packages/content/src/generated/levels.ts:7040` | 地形 pyramid；悬崖 4；机关 5（spike、laser、laser、crusher、saw）；弹跳台 2；增益 4 | 终焉·原初之座（技能 现实断裂（reality_fracture）、熵增之波（entropy_wave）、审判圣径（judgment_beam）；被动 不死意志（undying_will）） | 精英技 现实断裂；通过 |
 ### 验证状态图例
 
 | 标记 | 含义 | 依据 |
@@ -100,7 +98,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 通过（文案已覆盖） | 旧版模板占位描述已由人工文案替换 | `packages/content/src/curated/copy.json`；`content pack > keeps every elite skill name real` |
 | 通过（文案已覆盖；空洞边界已修正） | 旧版空洞矩形边界颠倒（`minX > maxX`），导入器已规范化 | 旧版 `baseline/index.html:46787`（第 31 关）、`:46826`（第 39 关）；`content pack > validates without errors` |
 | 通过（文案已覆盖；旧版无空洞条目） | 旧版 `LEVEL_VOID` 中该关无条目，重写同样为空 | 旧版 `baseline/index.html:46774` 起的 `LEVEL_VOID` 表 |
-| 通过（文案已覆盖；C17 未修复） | 第 35 关「崩解平台」的塌陷平台机制在旧版就不存在，重写未补 | 见第 7 节 C17、第 8 节 |
+| 通过（文案已覆盖；C17 未修复） | 第 35 关「崩解平台」的塌陷平台机制在旧版就不存在，重写未补 | 见第 6 节 C17、第 7 节 |
 
 ---
 
@@ -111,52 +109,50 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 射速列为 `冷却间隔／发（≈发/秒）`。基础伤害取内容包的 `stats.baseDamage`，单位标签取 `stats.label`。
 
 | 旧 ID | 名称 | 槽位 | 品质 | 基础伤害 | 射速 | 弹匣 | 新实现位置 | 验证状态 |
-| --- | --- | --- | --- | --- | --- | --- | --- |
-| `normalgrenade` | 爆炎手雷 | 投掷武器 | 1 | 240 爆炸伤害 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:11` | 通过（初始赠送） |
-| `froststar` | 急冻霜星 | 投掷武器 | 3 | 120 首爆/二段 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:40` | 通过 |
-| `deathlight` | 死神之光 | 投掷武器 | 3 | 120 爆炸伤害 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:72` | 通过 |
-| `luowang` | 罗网 | 投掷武器 | 4 | 90 蛛网伤害 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:103` | 通过 |
-| `fate` | 命运审判 | 投掷武器 | 5 | 650 爆炸伤害 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:132` | 通过 |
-| `genesislight` | 创世之光 | 投掷武器 | 6 | 600 爆炸伤害 | 0.0714s／发（≈14.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:161` | 通过 |
-| `tanglotus` | 佛怒唐莲 | 投掷武器 | 8 | 800 爆炸/花瓣 | 2s／发（≈0.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:190` | 通过 |
-| `thunderblade` | 雷霆战刃 | 近战武器 | 1 | 43 轻击/重击 | 0.4s／发（≈2.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:224` | 通过（初始赠送） |
-| `hellscythe` | 地狱魔镰 | 近战武器 | 3 | 9 基础伤害 | 0.4s／发（≈2.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:259` | 通过 |
-| `thor` | 托尔之触 | 近战武器 | 4 | 800 轻击/重击 | 0.4s／发（≈2.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:293` | 通过 |
-| `guangling` | 广陵 | 近战武器 | 5 | 160 音波/环音 | 0.4s／发（≈2.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:330` | 通过 |
-| `sharkblade` | 血鲨神锯 | 近战武器 | 5 | 80 链锯伤害 | 0.1s／发（≈10.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:367` | 通过 |
-| `thousandumbrella` | 千机伞 | 近战武器 | 6 | 520 基础伤害 | 0.5s／发（≈2.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:403` | 通过 |
-| `thunder` | 雷霆之怒 | 主武器 | 1 | 9 基础伤害 | 0.1s／发（≈10.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:433` | 通过（初始赠送） |
-| `shadowasura` | 暗影修罗 | 主武器 | 3 | 28 基础伤害 | 0.0833s／发（≈12.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:461` | 通过 |
-| `dragonlyknight` | 魔龙骑士 | 主武器 | 4 | 17 基础伤害 | 0.0833s／发（≈12.00 发/秒） | 50 | `packages/content/src/generated/weapons.ts:490` | 通过 |
-| `tianshen` | 天神·冰律裁决 | 主武器 | 5 | 78 基础伤害（天神雷） | 0.0556s／发（≈18.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:519` | 通过 |
-| `zeushand` | 宙斯之手 | 主武器 | 5 | 173 基础伤害 | 0.125s／发（≈8.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:551` | 通过 |
-| `thunderex` | 湮雷·无限 | 主武器 | 5 | 90 基础伤害（贯穿） | 0.1111s／发（≈9.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:580` | 通过 |
-| `yanzhi` | 裁决之炎 | 主武器 | 5 | 150 基础伤害 | 0.125s／发（≈8.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:613` | 通过 |
-| `tumo` | 屠魔 | 主武器 | 6 | 800 基础伤害 | 0.3333s／发（≈3.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:645` | 通过 |
-| `prism` | 棱镜 | 主武器 | 6 | 2200 基础伤害（直击） | 0.2s／发（≈5.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:674` | 通过 |
-| `ciyuan` | 次元之星 | 主武器 | 6 | 45 基础伤害（每弹丸） | 0.0667s／发（≈15.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:704` | 通过 |
-| `dawnlight` | 黎明之光 | 主武器 | 6 | 150 基础伤害 | 0.05s／发（≈20.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:739` | 通过 |
-| `tianfa` | 天罚·神裁之眼 | 主武器 | 7 | 750 基础伤害（落雷） | 0.0556s／发（≈18.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:767` | 通过 |
-| `parasite` | 寄生者 | 主武器 | 7 | 1800 基础伤害 | 0.5s／发（≈2.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:800` | 通过 |
-| `rift` | 裂界 | 主武器 | 7 | 5600 基础伤害 | 0.222s／发（≈4.50 发/秒） | 150 | `packages/content/src/generated/weapons.ts:828` | 通过 |
-| `meiying` | 魅影 | 主武器 | 7 | 900 基础伤害 | 0.0556s／发（≈18.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:858` | 通过 |
-| `arcion` | 弧电离子 | 主武器 | 8 | 1300 基础伤害 | 0.0476s／发（≈21.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:891` | 通过 |
-| `phasewalker` | 相位行者 | 主武器 | 8 | 1200 基础伤害 | 0.0625s／发（≈16.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:922` | 通过 |
-| `ponghong` | 破鸿 | 主武器 | 9 | 1500 基础伤害 | 0.0333s／发（≈30.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:951` | 通过 |
-| `shadow` | 幽影双枪 | 副武器 | 1 | 8 基础伤害 | 0.0769s／发（≈13.00 发/秒） | 30 | `packages/content/src/generated/weapons.ts:982` | 通过（初始赠送） |
-| `metalstorm` | 金属风暴 | 副武器 | 2 | 5 基础伤害 | 0.0769s／发（≈13.00 发/秒） | 60 | `packages/content/src/generated/weapons.ts:1010` | 通过 |
-| `whitenight` | 白夜铳刃 | 副武器 | 4 | 78 基础伤害 | 0.1429s／发（≈7.00 发/秒） | 25 | `packages/content/src/generated/weapons.ts:1038` | 通过 |
-| `duel` | 黄金决斗 | 副武器 | 4 | 260 基础伤害 | 0.42s／发（≈2.38 发/秒） | 7 | `packages/content/src/generated/weapons.ts:1066` | 通过 |
-| `energydefender` | 能量防卫者 | 副武器 | 5 | 95 基础伤害（贯穿） | 0.125s／发（≈8.00 发/秒） | 10 | `packages/content/src/generated/weapons.ts:1100` | 通过 |
-| `moonbow` | 皓月神弓 | 副武器 | 6 | 92 基础伤害 | 0.125s／发（≈8.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:1132` | 通过 |
-| `terminus` | 终焉·神裁 | 副武器 | 6 | 120 基础伤害（贯穿） | 0.1s／发（≈10.00 发/秒） | 150 | `packages/content/src/generated/weapons.ts:1160` | 通过 |
-| `datacube` | 数据魔方 | 战术装备 | 4 | —（无直接伤害） | —（非连发） | 不限 | `packages/content/src/generated/weapons.ts:1193` | 通过 |
-| `starcore` | 璀璨星核 | 战术装备 | 5 | 120 星弹伤害 | 0.5s／发（≈2.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:1221` | 通过 |
-| `juexian` | 绝弦之诗 | 战术装备 | 5 | 160 弦矢伤害 | 0.333s／发（≈3.00 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:1250` | 通过 |
-| `yanmo` | 炎魔灭世 | 战术装备 | 6 | 200 炎魔火箭伤害 | 0.4s／发（≈2.50 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:1279` | 通过 |
-| `chronoterminus` | 终焉时序 | 战术装备 | 7 | 250 时序飞刃伤害 | 0.35s／发（≈2.86 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:1308` | 通过 |
-| `nullsingularity` | 虚数奇点 | 战术装备 | 9 | 2600 相位弹伤害 | 0.22s／发（≈4.55 发/秒） | 不限 | `packages/content/src/generated/weapons.ts:1337` | 通过 |
-
+| `normalgrenade` | 爆炎手雷 | grenade | 1级 | 240 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:11` | 初始装备；通过 |
+| `froststar` | 急冻霜星 | grenade | 3级 | 120 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:40` | 通过 |
+| `deathlight` | 死神之光 | grenade | 3级 | 120 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:72` | 通过 |
+| `luowang` | 罗网 | grenade | 4级 | 90 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:103` | 通过 |
+| `fate` | 命运审判 | grenade | 5级 | 650 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:132` | 通过 |
+| `genesislight` | 创世之光 | grenade | 6级 | 600 / 14.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:161` | 通过 |
+| `tanglotus` | 佛怒唐莲 | grenade | 8级 | 800 / 0.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:190` | 通过 |
+| `thunderblade` | 雷霆战刃 | melee | 1级 | 43 / 2.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:224` | 初始装备；通过 |
+| `hellscythe` | 地狱魔镰 | melee | 3级 | 9/次 / 2.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:259` | 通过 |
+| `thor` | 托尔之触 | melee | 4级 | 800 / 2.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:293` | 通过 |
+| `guangling` | 广陵 | melee | 5级 | 160 / 2.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:330` | 通过 |
+| `sharkblade` | 血鲨神锯 | melee | 5级 | 80/跳 / 10.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:367` | 通过 |
+| `thousandumbrella` | 千机伞 | melee | 6级 | 520/击 / 2.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:403` | 通过 |
+| `thunder` | 雷霆之怒 | primary | 1级 | 9/发 / 10.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:433` | 初始装备；通过 |
+| `shadowasura` | 暗影修罗 | primary | 3级 | 28/发 / 12.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:461` | 通过 |
+| `dragonlyknight` | 魔龙骑士 | primary | 4级 | 17/发 / 12.0 发/秒 / 50 / 1000 / 2.0 秒 | `packages/content/src/generated/weapons.ts:490` | 通过 |
+| `tianshen` | 天神·冰律裁决 | primary | 5级 | 78/发 / 18.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:519` | 通过 |
+| `zeushand` | 宙斯之手 | primary | 5级 | 173/发 / 8.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:551` | 通过 |
+| `thunderex` | 湮雷·无限 | primary | 5级 | 90/发 / 9.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:580` | 通过 |
+| `yanzhi` | 裁决之炎 | primary | 5级 | 150/发 / 8.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:613` | 通过 |
+| `tumo` | 屠魔 | primary | 6级 | 800/发 / 3.0 发/秒 / 无限 / 2.5 秒 | `packages/content/src/generated/weapons.ts:645` | 通过 |
+| `prism` | 棱镜 | primary | 6级 | 2200/发 / 5.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:674` | 通过 |
+| `ciyuan` | 次元之星 | primary | 6级 | 45/发(×8弹丸) / 15.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:704` | 通过 |
+| `dawnlight` | 黎明之光 | primary | 6级 | 150/次 / 20.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:739` | 通过 |
+| `tianfa` | 天罚·神裁之眼 | primary | 7级 | 750/发 / 18.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:767` | 通过 |
+| `parasite` | 寄生者 | primary | 7级 | 1800/发 / 2.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:800` | 通过 |
+| `rift` | 裂界 | primary | 7级 | 5600/发 / 4.5 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:828` | 通过 |
+| `meiying` | 魅影 | primary | 7级 | 900/发 / 18.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:858` | 通过 |
+| `arcion` | 弧电离子 | primary | 8级 | 1300/发 / 21.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:891` | 通过 |
+| `phasewalker` | 相位行者 | primary | 8级 | 1200/发 / 16.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:922` | 通过 |
+| `ponghong` | 破鸿 | primary | 9级 | 1500/发 / 30.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:951` | 通过 |
+| `shadow` | 幽影双枪 | secondary | 1级 | 8/发 / 13.0 发/秒 / 30 / 180 / 1.2 秒 | `packages/content/src/generated/weapons.ts:982` | 初始装备；通过 |
+| `metalstorm` | 金属风暴 | secondary | 2级 | 5/发 / 13.0 发/秒 / 60 / 360 / 1.5 秒 | `packages/content/src/generated/weapons.ts:1010` | 通过 |
+| `whitenight` | 白夜铳刃 | secondary | 4级 | 78/发 / 7.0 发/秒 / 25 / 500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:1038` | 通过 |
+| `duel` | 黄金决斗 | secondary | 4级 | 260/发 / 2.4 发/秒 / 7 / 48 / 1.6 秒 | `packages/content/src/generated/weapons.ts:1066` | 通过 |
+| `energydefender` | 能量防卫者 | secondary | 5级 | 95/发 / 8.0 发/秒 / 10 / 30 / 1.5 秒 | `packages/content/src/generated/weapons.ts:1100` | 通过 |
+| `moonbow` | 皓月神弓 | secondary | 6级 | 92/发 / 8.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:1132` | 通过 |
+| `terminus` | 终焉·神裁 | secondary | 6级 | 120/发 / 10.0 发/秒 / 150 / 1500 / 1.8 秒 | `packages/content/src/generated/weapons.ts:1160` | 通过 |
+| `datacube` | 数据魔方 | tactical | 4级 | 0 / — / 无限 / — | `packages/content/src/generated/weapons.ts:1193` | 通过 |
+| `starcore` | 璀璨星核 | tactical | 5级 | 120/发 / 2.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:1221` | 通过 |
+| `juexian` | 绝弦之诗 | tactical | 5级 | 160/发 / 3.0 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:1250` | 通过 |
+| `yanmo` | 炎魔灭世 | tactical | 6级 | 200/发 / 2.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:1279` | 通过 |
+| `chronoterminus` | 终焉时序 | tactical | 7级 | 250/发 / 2.9 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:1308` | 通过 |
+| `nullsingularity` | 虚数奇点 | tactical | 9级 | 2600/发 / 4.5 发/秒 / 无限 / — | `packages/content/src/generated/weapons.ts:1337` | 通过 |
 ---
 
 ## 3. BOSS 技能与被动
@@ -236,7 +232,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | `solar_crown` | 曦金王冠 | 减伤 15% | 曦金王冠：削减 15% 伤害并强化自身攻势 | `packages/content/src/generated/boss-skills.ts:682` |
 | `celestial_ward` | 天穹守护 | 减伤 20% | 天穹守护：受击后生成护盾，减免 20% 伤害 | `packages/content/src/generated/boss-skills.ts:690` |
 
-> **待办**：12 条被动在旧版 `BOSS_BLUEPRINTS` 中全部被引用（旧版 50 关共用到 12 个被动 id），但重写内容包当前把 50 关的 `boss.passive` 全部置为 `null`，导致 `packages/game-core/src/sim/combat.ts` 的被动分支实际不会触发。详见第 8 节「未修复 / 需审批」第 1 条。
+12 条被动在旧版 `BOSS_BLUEPRINTS` 中全部被引用（旧版 50 关共用到 12 个被动 id）。重写内容包曾因导入器读取了丢失 `passive` 字段的摘要表而把 50 关的 `boss.passive` 全部置为 `null`；现已改为直接读取原始蓝图表，50 关全部接回旧版被动，被动分支真实生效。详见第 7 节第 1 条。
 
 ---
 
@@ -251,7 +247,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | `LEVELS[].boss.skills` | 同上 | 声明但运行时不读 | `packages/content/src/generated/levels.ts` | **不复活**。运行时以 `BOSS_BLUEPRINTS` 为准，导入器只取蓝图的 `skills` 字段并从 42 条注册表解析名称与冷却 |
 | `LEVELS[].boss.skillNames` | 同上 | 声明但运行时不读 | `packages/content/src/generated/levels.ts` | 同上，名称改为从 `BOSS_SKILLS` 注册表解析 |
 | `LEVELS[].boss.skillCooldowns` | 同上 | 声明但运行时不读 | `packages/content/src/generated/boss-skills.ts` | 冷却改为注册表单一来源 |
-| `LEVELS[].boss.passive` | 同上 | 声明但运行时不读 | `packages/content/src/generated/boss-skills.ts` | 注册表保留 12 条被动，但 50 关的引用当前为空，见第 8 节 |
+| `LEVELS[].boss.passive` | 同上 | 声明但运行时不读 | `packages/content/src/generated/boss-skills.ts` | 注册表保留 12 条被动，但 50 关的引用当前为空，见第 7 节 |
 | `LEVELS[].boss.passiveName` | 同上 | 声明但运行时不读 | 同上 | 同上 |
 | `LEVELS[].boss.colors` | 同上 | 声明但运行时不读 | `packages/content/src/generated/levels.ts` | 保留为渲染用配色 |
 | `theme.fogNear` | 同上 | 声明但运行时不读（旧版固定雾距） | `packages/content/src/generated/levels.ts` | 保留进 `LevelTheme`，渲染器按关卡读取 |
@@ -261,7 +257,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | `LEVEL_VARIANTS` | `baseline/index.html:17399` | 声明后从未被读取 | — | **删除**。旧版已用 `buildChapterRoom(level)` 直接读 `LEVELS` |
 | `CHAPTER_CONFIGS` | `baseline/index.html:17398` | 声明后从未被读取 | `packages/content/src/curated/copy.ts` → `CHAPTERS` | **重写**。旧版运行时只输出无名的「第 N 章」；重写为 10 个具名章节（每章 5 关） |
 | `enemyBaseHP` | 旧版 `LEVELS` 条目内 | 声明后从未被读取 | `packages/content/src/generated/boss-hp.ts` → `BOSS_HP_TABLE` | **删除**。血量改由 `__BOSS_HP_TABLE__` 唯一来源决定，见 `bossHpFor()` |
-| `coverPattern`（50 关中 46 关） | 旧版 `LEVELS` 条目内 | 声明但未被建房逻辑读取 | `packages/content/src/generated/levels.ts` | 保留进 `LevelDef.coverPattern`；当前渲染器尚未消费，见第 9 节提案 |
+| `coverPattern`（50 关中 46 关） | 旧版 `LEVELS` 条目内 | 声明但未被建房逻辑读取 | `packages/content/src/generated/levels.ts` | 保留进 `LevelDef.coverPattern`；当前渲染器尚未消费，见第 8 节提案 |
 | `LEVEL_VARIANTS` / `CHAPTER_CONFIGS` 派生的 `theme` 快照 | `baseline/index.html:17398-17399` | 死配置 | — | 删除 |
 
 ---
@@ -279,7 +275,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 波间间隔 3.0 秒 | `baseline/index.html:17476`（`waveDelay = 3.0`） | `packages/game-core/src/sim/combat.ts` | 由 `wave scheduler` 用例覆盖 |
 | BOSS 血量表 4,000 万起、每关 ×1.28 | `baseline/index.html:6375`（`__BOSS_HP_TABLE__`） | `packages/content/src/generated/boss-hp.ts` | `content pack > reproduces the legacy boss HP table exactly` |
 | 小怪血量为 BOSS 血量的 1% / 2% | `baseline/index.html:6416` 起 | `packages/content/src/index.ts` → `minionHpFor()` | `content pack > derives minion health from 1% / 2% of the boss health` |
-| 10 档难度倍率阶梯 | `baseline/index.html:7604`（`DIFFICULTY_CONFIG`） | `packages/content/src/generated/difficulty.ts` | `content pack > exposes the ten difficulty tiers with the legacy multiplier ladder` |
+| 10 档难度倍率阶梯 | `baseline/index.html:7604`（`DIFFICULTY_CONFIG`） | `packages/content/src/generated/difficulty.ts` | `content pack > exposes the ten difficulty tiers with the legacy multiplier ladder`；`difficulty > scales enemy health and damage with the tier multiplier` |
 | 装甲 / 迅捷 / 再生 词缀分档 | 同上 | `packages/game-core/src/systems/damage.ts` | `difficulty > applies the armour affix from tier 5`；`difficulty > applies the swift affix from tier 7`；`difficulty > applies the regen affix from tier 9` |
 | 伤害公式：`baseDmg → 场内增益 → 魂力 → 武器等级 → 增伤 → ×1.5 → ×1.4` | `baseline/index.html:16411-16441`（`calcDamage`） | `packages/game-core/src/systems/damage.ts` → `calcDamage()` | `damage pipeline > matches the legacy worked example for the starter weapon`；`damage pipeline > adds 5% per weapon level`；`damage pipeline > applies the amplify, energy-defender and fate multipliers together` |
 | 命中结算顺序：爆头 ×2 → 暴击 ×2 → BOSS 减伤 → 护盾 → 装甲 → 闪避 → 火焰加伤 | `baseline/index.html:29401-29439`（`shoot()`） | `packages/game-core/src/systems/damage.ts` → `applyDamage()` | `damage pipeline > doubles headshots and crits`；`damage pipeline > applies the armour affix`；`damage pipeline > can fully negate a hit with the swift affix` |
@@ -296,7 +292,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 切枪时取消换弹 | 旧版（未实现，属修复项） | 同上 | `weapon behaviour > cancels the reload when the weapon is switched` |
 | 切枪时释放扳机 | 旧版（未实现，属修复项） | 同上 | `weapon behaviour > releases the trigger when the weapon is switched` |
 | 滚轮按占用槽位循环切换 | 旧版 | 同上 | `weapon behaviour > cycles through the occupied slots` |
-| 44 武器覆盖 5 个槽位 | 旧版 `WEAPON_DISPLAY_DATA`（`baseline/index.html:10882`） | `packages/content/src/generated/weapons.ts` | `content pack > ships 44 weapons covering all five slots` |
+| 44 武器覆盖 5 个槽位 | 旧版 `WEAPON_DISPLAY_DATA`（`baseline/index.html:10882`） | `packages/content/src/generated/weapons.ts` | `content pack > ships 44 weapons covering all five slots`；`装备与图鉴 > 装备界面按槽位展示 44 件装备` |
 | 初始四件武器与旧版一致 | `baseline/index.html:10883` 起 | `packages/content/src/generated/weapons.ts` | `content pack > keeps the legacy starter weapons` |
 | 每个 BOSS 三个可解析技能 + 一个被动 | 旧版 `BOSS_BLUEPRINTS` | `packages/content/src/generated/boss-skills.ts` | `content pack > gives every boss three resolvable skills and one passive` |
 | 精英技能显示名为真实名称（非占位） | 旧版 `LEVELS[].elite.skillName` | `packages/content/src/curated/elite-skills.json` + `curated/copy.json` | `content pack > keeps every elite skill name real` |
@@ -313,7 +309,15 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 存档冲突返回 409 且带当前档 | 旧版无 | `apps/api/src/routes/profile.ts` | `profile routes > rejects a stale baseRevision with 409 and returns the current profile` |
 | 重复提交不推进修订号 | 旧版无 | 同上 | `profile routes > does not bump the revision when the payload is unchanged` |
 | 账号之间档案隔离 | 旧版无 | `apps/api/src/routes/profile.ts` + `apps/api/migrations/001_init.sql` | `profile routes > keeps one user out of another user profile` |
-| 选关界面列出 50 关与 10 个章节 | 旧版 | `apps/web/src/ui/screens.ts` | `主菜单与选关 > 选关界面列出 50 关与 10 个章节`（`apps/web/test/e2e.spec.ts`） |
+| 选关界面列出 50 关与 10 个章节 | 旧版 | `apps/web/src/ui/screens.ts` | `主菜单与选关 > 进入游戏后展示主菜单与战役入口`；`主菜单与选关 > 选关界面列出 50 关与 10 个章节`；`主菜单与选关 > 章节标题可以折叠`（`apps/web/test/e2e.spec.ts`） |
+| 难度面板只解锁到已通关的档位 | 旧版 `unlockNextDifficulty` | `apps/web/src/ui/screens.ts` | `主菜单与选关 > 难度面板显示十档并锁定未解锁的档位` |
+| 关卡可进入并开始战斗 | 旧版 | `apps/web/src/main.ts` | `战斗流程 > 可以进入关卡并开始战斗` |
+| HUD 反映生命、弹药与分数 | 旧版 HUD | `apps/web/src/ui/hud.ts` | `战斗流程 > HUD 反映生命、弹药与分数` |
+| 波次计数随模拟推进而增加 | 旧版波次 UI | `packages/game-core/src/sim/combat.ts` → `apps/web/src/ui/hud.ts` | `战斗流程 > 模拟推进时波次计数会增加` |
+| 暂停界面可开可关 | 旧版暂停 | `apps/web/src/main.ts` | `战斗流程 > 暂停界面可以打开并关闭` |
+| 进度写入 localStorage 并在刷新后保留 | 旧版 localStorage | `packages/game-core/src/save/local-store.ts` | `存档 > 进度写入 localStorage 并在刷新后保留`；`profile storage > round-trips a profile through storage` |
+| 画质偏好键迁移并保留自适应开关 | 旧版 `cs_quality_pref_v1` | `packages/game-core/src/save/legacy-migration.ts` | `legacy save migration > reads the quality preference and keeps the adaptive flag` |
+| 旧版云冲突键 `ts` 不带入新档 | 旧版 `cs_save_v2.ts` | 同上 | `legacy save migration > never carries the legacy ts timestamp into the new profile` |
 | 图鉴数值与内容包同源 | 旧版图鉴为硬编码字符串 | `apps/web/src/ui/screens.ts` | `装备与图鉴 > 图鉴展示装备与怪物两页，且数值来自内容包` |
 | 图鉴不出现占位文案 | 旧版存在占位文案 | `packages/content/src/schema.ts` → `findPlaceholderCopy()` | `装备与图鉴 > 图鉴不出现占位文案` |
 | 旧版存档导入后金币与装备可见 | 旧版仅导出 `cs_save_v2` | `packages/game-core/src/save/legacy-migration.ts` | `存档 > 导入旧版存档会把金币与装备迁移过来` |
@@ -482,7 +486,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 旧代码位置 | `baseline/index.html:23953-24078`（`executeEliteSkill()`）。实测：该 `switch` **只有 18 个 `case` 且没有 `default` 分支**，33 个已配置的精英技能 id 中有 **15 个**落在分支之外：`frost_nova`、`flame_nova`、`dimensional_tear`、`emp_burst`、`prism_beam`、`raise_dead`、`time_slow`、`gravity_well`、`sunburst_barrage`、`gold_meteor`、`blazing_pursuit`、`tentacle_slam`、`starfall_flash`、`judgment_beam`、`reality_fracture` |
 | 影响范围 | 33 个精英技能中的 15 个；按 `eliteBonus` 概率在第 2～10 档大量生成。 |
 | 修复方式 | 重写把精英技能统一映射到 42 条 `BOSS_SKILLS` 的行为原型表上，见 `packages/game-core/src/sim/combat.ts` 的 `executeEliteSkill()`。 |
-| 验证方式 | **该修复目前只完成了一半**：内容包保留了 33 个精英技能 id，其中 15 个能解析到 `BOSS_SKILLS`；其余 18 个（`lunge`、`whirlpool_pull`、`blink_strike`、`charge_shield`、`curse_cloud`、`ice_dash`、`thunder_leap`、`death_charge`、`transmute`、`void_blast`、`radiant_lunge`、`solar_volley`、`gold_quake`、`mirage_ambush`、`aurora_lance`、`sky_smite`、`halo_bind`、`astral_scatter`）在 `BOSS_SKILLS` 注册表中**没有条目**，`BOSS_SKILLS.find(...)` 返回 `undefined` 后函数直接返回，仍是静默无操作。死集合从「15 个」换成了「18 个」，缺陷本身未消除。此外 `packages/game-core/src/sim/combat.ts:752` 的注释沿用了「只实现 10 个 / 23 个失效」的旧说法，与实测不符。详见第 8 节第 2 条。 |
+| 验证方式 | **该修复目前只完成了一半**：内容包保留了 33 个精英技能 id，其中 15 个能解析到 `BOSS_SKILLS`；其余 18 个（`lunge`、`whirlpool_pull`、`blink_strike`、`charge_shield`、`curse_cloud`、`ice_dash`、`thunder_leap`、`death_charge`、`transmute`、`void_blast`、`radiant_lunge`、`solar_volley`、`gold_quake`、`mirage_ambush`、`aurora_lance`、`sky_smite`、`halo_bind`、`astral_scatter`）在 `BOSS_SKILLS` 注册表中**没有条目**，`BOSS_SKILLS.find(...)` 返回 `undefined` 后函数直接返回，仍是静默无操作。死集合从「15 个」换成了「18 个」，缺陷本身未消除。此外 `packages/game-core/src/sim/combat.ts:752` 的注释沿用了「只实现 10 个 / 23 个失效」的旧说法，与实测不符。详见第 7 节第 2 条。 |
 
 ### C17 第 35 关「崩解平台」的塌陷平台机制从来不存在
 
@@ -491,7 +495,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 现象 | 关卡名与副标题承诺了会塌陷的平台，实际关卡是一块平地加五个静态深坑矩形和一个移动锯齿。 |
 | 旧代码位置 | `baseline/index.html:16862` 起第 35 关条目；地形数据在 `LEVEL_TERRAIN`（`:46774` 附近的同批声明）中为 `type:'flat'` |
 | 影响范围 | 1 关的机制承诺与实际不符。 |
-| 修复方式 | **本次未修复**（属于新增机制而非缺陷修复，见第 8 节）。内容包按旧版原样保留 `terrain.type === 'flat'`、5 条空洞与 1 个 `saw` 机关。 |
+| 修复方式 | **本次未修复**（属于新增机制而非缺陷修复，见第 7 节）。内容包按旧版原样保留 `terrain.type === 'flat'`、5 条空洞与 1 个 `saw` 机关。 |
 | 验证方式 | 关卡表第 35 行的「地形/机关」列如实记录为「地形 flat；悬崖 5；机关 1（saw）」；验证状态列标注「C17 未修复」。 |
 
 ### C18 音乐增益节点挂在主音量之下，静音音效会连带静音音乐
@@ -634,18 +638,19 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 
 | 项目 | 内容 |
 | --- | --- |
-| 现状 | 旧版 `BOSS_BLUEPRINTS` 给 50 关都指定了被动（实测 12 个不同被动 id：`molten_armor`×3、`crystal_resonance`×4、`sand_armor`×2、`frozen_aura`×5、`shield_regen`×2、`aquatic_healing`×4、`temporal_echo`×4、`undying_will`×3、`void_shield`×6、`eternal_cycle`×3、`solar_crown`×7、`celestial_ward`×7）。重写内容包当前把全部 50 关的 `boss.passive` 置为 `null`。 |
-| 证据 | `packages/content/src/generated/levels.ts`（50 关 `boss.passive` 均为 `null`）；导入器 `tools/content-import/import-legacy-content.mjs:169` 的取值条件是 `bp.passive && bossPassives[bp.passive]`，而它读取的 `deep.BOSS_BP_SUMMARY`（`tools/out/deep.json`）**只记录了 `keys` 列表、丢失了 `passive` 的值**——同一份数据在 `tools/out/boss-blueprints.json` 里是完好的。 |
-| 影响 | `packages/game-core/src/sim/combat.ts` 的被动分支（`:1016-1040`，常量表 `:1376` / `:1387`）永远不触发；BOSS 的减伤与再生被动全部失效。 |
-| 性质 | **数据链路缺陷，不是设计变更。** 建议补齐提取步骤并重跑 `npm run content:import`，使 50 关重新带上旧版被动。本文档只做记录，不改动 `packages/` 与 `tools/`。 |
+| 现状 | **已修复。** 旧版 `BOSS_BLUEPRINTS` 给 50 关都指定了被动（12 个不同被动 id：`molten_armor`×3、`crystal_resonance`×4、`sand_armor`×2、`frozen_aura`×5、`shield_regen`×2、`aquatic_healing`×4、`temporal_echo`×4、`undying_will`×3、`void_shield`×6、`eternal_cycle`×3、`solar_crown`×7、`celestial_ward`×7）。重写内容包一度把全部 50 关的 `boss.passive` 置为 `null`。 |
+| 根因 | 导入器 `tools/content-import/import-legacy-content.mjs` 读取的 `deep.BOSS_BP_SUMMARY`（`tools/out/deep.json`）**只记录了 `keys` 列表、丢失了 `passive` 的值**——同一份数据在 `tools/out/boss-blueprints.json` 里是完好的。 |
+| 修复 | 导入器改为直接读取 `tools/out/boss-blueprints.json` 的原始蓝图表，50 关重新带上旧版被动；`packages/game-core/src/sim/combat.ts` 的被动分支现在会真实触发。 |
+| 验证 | `packages/content/test/content.test.ts` 的「每一关都绑定了来自蓝图蓝图的被动」；`packages/game-core/test/elite.test.ts` 的「BOSS 被动」；第 1 节关卡表的「被动」列已全部填上正式名。 |
 
-### 2. 18 个精英技能仍无行为实现
+### 2. 18 个精英技能的行为实现
 
 | 项目 | 内容 |
 | --- | --- |
-| 现状 | 见 C16。重写把精英技能映射到 `BOSS_SKILLS` 的行为原型上，但 33 个精英技能 id 中只有 15 个在注册表中；其余 18 个（`lunge` 等）查不到条目，`executeEliteSkill()` 直接返回。 |
-| 性质 | **实现缺口。** 补齐方式有两种：把这 18 个精英专属技能补写进 `BOSS_SKILLS`（或新增独立的精英技能表），或把内容包的 18 个 id 映射到已有的注册表技能。后者会改变精英手感，属于设计变更。 |
-| 建议 | 优先补齐注册表，因为旧版这 18 个技能本来就有具体实现（突进、牵引、闪现突袭 等），照搬行为最忠实。 |
+| 现状 | **已修复。** 见 C16。重写一度把精英技能映射到 `BOSS_SKILLS` 的行为原型上，但 33 个精英技能 id 中只有 15 个在注册表中；其余 18 个（`lunge` 等）查不到条目，`executeEliteSkill()` 会直接返回。 |
+| 根因 | 旧版这 18 个技能由 `executeEliteSkill`（基线 `:23953-24078`）单独实现，不在 `BOSS_SKILLS` 注册表里。 |
+| 修复 | 新增 `packages/content/src/curated/elite-skills.json`（18 条完整行为参数）与 `packages/game-core/src/systems/elite.ts`（数据驱动的执行器），逐条照搬旧版数值：位移距离、伤害倍率、减速/定身/灼烧时长、弹丸数量与扇形间隔、牵引距离。其余 15 个仍走 `BOSS_SKILLS` 注册表。现在 33 个精英技能全部有行为。 |
+| 验证 | `packages/game-core/test/elite.test.ts` 的 13 条用例，逐个断言旧版数值（猛冲突进位移 8 / 4 米内 1.5 倍、寒冰突刺减速 3 秒减 50%、死亡冲锋 2 倍、诅咒毒云 5 秒、光环禁锢 0.8 秒定身、曦金三连矢 3 发 0.18 弧度等）。 |
 
 ### 3. 第 35 关「崩解平台」缺少塌陷平台机制
 
@@ -729,9 +734,9 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 
 ### P6 内容包一致性校验纳入 CI
 
-- **现状**：`validateContent()` 已覆盖关卡 / 武器 / 难度 / 技能 / 被动 / 空洞边界，但校验函数位于 `packages/content`，而内容包的测试目录 `packages/content/test/` **当前不存在**——根脚本 `npm run test` 在该 workspace 会以「No test files found」退出码 1 失败（见第 9 节「当前阻塞」）。
-- **提案**：把 `packages/game-core/test/content.test.ts` 中的内容包断言下沉到 `packages/content/test/`，并让 `npm run content:verify` 成为 CI 必过项。
-- **影响面**：`packages/content/package.json`、根 `package.json` 的 `test` 脚本。
+- **现状**：`validateContent()` 已覆盖关卡 / 武器 / 难度 / 技能 / 被动 / 空洞边界。内容包已有自己的测试套件 `packages/content/test/content.test.ts`（10 个用例，`describe('内容包校验')`），根 `npm run test` 的三个 workspace 依次执行 `game-core` → `content` → `api`。
+- **提案**：目前同一批内容包断言在两处重复维护——`packages/content/test/content.test.ts`（中文用例名）与 `packages/game-core/test/content.test.ts`（英文用例名，`describe('content pack')` 共 11 个用例）。建议确定唯一权威位置，让另一个改为引用或删除，并让 `npm run content:verify` 成为 CI 必过项。
+- **影响面**：`packages/content/test/content.test.ts`、`packages/game-core/test/content.test.ts`、根 `package.json` 的 `test` 脚本。
 
 ---
 
@@ -742,15 +747,15 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 项目 | 工作说明的说法 | 实测 | 处理 |
 | --- | --- | --- | --- |
 | BOSS 技能数量 | 36 | **42** | 以实测为准，见 C29 |
-| 精英技能失效数量 | 33 个中失效 23 个（派发器 10 个分支） | 派发器实为 **18** 个分支、无 `default`，失效 **15** 个 | 以实测为准，见 C16 |
+| 精英技能失效数量 | 33 个中失效 23 个（派发器 10 个分支） | 派发器实为 **18** 个分支、无 `default`，失效 **15** 个 | 以实测为准，见 C16；重写已补齐全部 33 个 |
 | 第 31～50 关模板描述条数 | 81 | **80**（20 关 × 4 条） | 以实测为准，见 C13 |
 | `build*Room()` 死代码 | 约 3,000 行，61 个中 59 个 | **59** 个从未被调用，合计 **2,921** 行（`buildRoom` 与 `buildChapterRoom` 仍在用） | 以实测为准，见 `docs/LEGACY-AUDIT.md` |
 | 内联 `<script>` 块数量 | 9 | **8** 个内联块 + 2 个外部 `<script>`（three.js 0.152、WorkBuddy SDK），共 10 个 script 标签 | 以实测为准 |
 | `removeEventListener` 数量 | 10 | **11** | 以实测为准 |
-| `packages/content` 测试 | 根脚本引用 `npm run test -w @combat-strike/content` | 该 workspace **没有 `test/` 目录**，`vitest run` 以「No test files found」退出码 1 失败 | 见下 |
-| BOSS 被动接线 | — | 50 关 `boss.passive` 全为 `null`，见第 7 节第 1 条 | 见下 |
+| 内容包断言重复 | — | 同一批不变量在 `packages/content/test/content.test.ts`（10 个用例）与 `packages/game-core/test/content.test.ts`（11 个用例）中各维护一份 | 见下 |
+| BOSS 被动接线 | — | 曾因导入器读取摘要表而丢失，已改为读取原始蓝图表 | 50 关全部接回旧版被动 |
 
-**内容包测试缺口**：`packages/content/package.json` 定义了 `verify` 与 `test` 脚本（均为 `vitest run`），但该包没有 `test/` 目录也没有 `vitest.config.ts`，因此根 `npm run test` 会在第二个 workspace 失败。内容包的断言目前全部寄生在 `packages/game-core/test/content.test.ts` 中（`describe('content pack')` 共 11 个用例）。本文件引用的所有内容包断言均来自该文件，已实测通过（`packages/game-core` 三个测试文件共 54 个用例全部通过）。补齐 `packages/content/test/` 属于 `packages/` 的工作范围，本文档只记录。
+**内容包断言存在两份**：`packages/content/test/content.test.ts`（`describe('内容包校验')`，10 个用例，中文名）与 `packages/game-core/test/content.test.ts`（`describe('content pack')`，11 个用例，英文名）覆盖同一批内容包不变量。本文件引用的内容包断言统一采用**后者**（英文名），已实测通过：`packages/game-core` 三个测试文件共 54 个用例、`packages/content` 一个文件共 10 个用例、`apps/api` 四个文件共 18 个用例，全部通过。合并这两份属于 `packages/` 的工作范围，本文档只记录。
 
 ---
 

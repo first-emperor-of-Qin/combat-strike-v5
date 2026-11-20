@@ -39,6 +39,7 @@ import {
   sumSoulPower,
   type DamageContext,
 } from '../systems/damage.js';
+import { executeEliteAbility, getEliteSkill } from '../systems/elite.js';
 import {
   cancelReload,
   canFire,
@@ -55,6 +56,8 @@ import type {
   BossSkillState,
   BuffInstance,
   BouncePadInstance,
+  CloudState,
+  BlastState,
   DamageEvent,
   EnemyState,
   HazardInstance,
@@ -135,6 +138,10 @@ export class Simulation {
   projectiles: ProjectileState[] = [];
   hazards: HazardInstance[] = [];
   pads: BouncePadInstance[] = [];
+  /** Lingering hazards created by elite abilities. */
+  clouds: CloudState[] = [];
+  /** One-off explosions created by elite abilities. */
+  blasts: BlastState[] = [];
   buffs: BuffInstance[] = [];
 
   /** Runtime state for every equipped slot. */
@@ -232,6 +239,7 @@ export class Simulation {
       alive: true,
       invuln: 0,
       slowed: 0,
+      slowAmount: 0,
       burning: 0,
       rooted: 0,
       killStreak: 0,
@@ -327,6 +335,7 @@ export class Simulation {
     this.updateBoss(dt);
     this.updateProjectiles(dt);
     this.updateHazards(dt);
+    this.updateCloudsAndBlasts(dt);
     this.updatePadsAndBuffs(dt);
     this.updateStatusEffects(dt);
 
@@ -351,7 +360,7 @@ export class Simulation {
       if (p.killStreakTimer <= 0) p.killStreak = 0;
     }
 
-    const speed = p.moveSpeed * (p.slowed > 0 ? 0.5 : 1) * (p.rooted > 0 ? 0 : 1);
+    const speed = p.moveSpeed * (p.slowed > 0 ? 1 - p.slowAmount : 1) * (p.rooted > 0 ? 0 : 1);
     const sin = Math.sin(p.yaw);
     const cos = Math.cos(p.yaw);
     // Forward is -Z in the legacy camera basis.
@@ -754,6 +763,66 @@ export class Simulation {
    * mapped onto the boss skill behaviour table.
    */
   private executeEliteSkill(enemy: EnemyState): void {
+    // The 18 abilities the legacy actually implemented are ported verbatim.
+    if (getEliteSkill(enemy.skill!)) {
+      const bounds = this.bounds;
+      executeEliteAbility(enemy.skill!, {
+        get x() { return enemy.x; },
+        set x(value: number) { enemy.x = value; },
+        get z() { return enemy.z; },
+        set z(value: number) { enemy.z = value; },
+        playerX: this.player.x,
+        playerZ: this.player.z,
+        bounds,
+        distance: enemy.distanceToPlayer,
+        damage: enemy.damage,
+        rng: this.rng,
+        damagePlayer: (amount) => this.damagePlayer(amount, false),
+        pullPlayer: (dx, dz) => {
+          const nx = this.player.x + dx;
+          const nz = this.player.z + dz;
+          if (!this.isVoidAt(nx, nz)) {
+            this.player.x = nx;
+            this.player.z = nz;
+          }
+        },
+        spawnProjectile: (opts) => {
+          const vx = Math.sin(opts.angle) * opts.speed;
+          const vz = Math.cos(opts.angle) * opts.speed;
+          this.spawnProjectile({
+            x: opts.x, y: 1.6, z: opts.z,
+            vx, vy: 0, vz,
+            damage: opts.damage,
+            owner: 'enemy',
+            radius: opts.radius,
+            life: opts.life,
+          });
+        },
+        slowPlayer: (duration, amount) => {
+          this.player.slowed = Math.max(this.player.slowed, duration);
+          this.player.slowAmount = Math.max(this.player.slowAmount, amount);
+        },
+        rootPlayer: (duration) => {
+          this.player.rooted = Math.max(this.player.rooted, duration);
+        },
+        burnPlayer: (duration) => {
+          this.player.burning = Math.max(this.player.burning, duration);
+        },
+        spawnCloud: (x, z, radius, duration) => {
+          this.clouds.push({ x, z, radius, life: duration, timer: 0 });
+        },
+        spawnBlast: (x, z, radius) => {
+          this.blasts.push({ x, z, radius, life: 0.4, timer: 0 });
+          this.events.push({ type: 'boss-skill', skillId: 'elite-blast', x, z, radius });
+        },
+        onMeleeHit: () => {
+          this.events.push({ type: 'hit', damage: { amount: 0, type: 'normal', crit: false, headshot: false, weaponId: null, x: enemy.x, y: 1, z: enemy.z }, enemyId: enemy.id, isBoss: false });
+        },
+      });
+      return;
+    }
+
+    // The remaining 15 reuse the boss skill registry.
     const skill = BOSS_SKILLS.find((s) => s.id === enemy.skill);
     if (!skill) return;
 
@@ -1281,6 +1350,44 @@ export class Simulation {
     }
   }
 
+  /** Lingering clouds tick damage; blasts resolve once. */
+  private updateCloudsAndBlasts(dt: number): void {
+    for (let i = this.clouds.length - 1; i >= 0; i--) {
+      const cloud = this.clouds[i]!;
+      cloud.life -= dt;
+      cloud.timer += dt;
+      if (cloud.life <= 0) {
+        this.clouds.splice(i, 1);
+        continue;
+      }
+      // A cloud ticks damage once per second.
+      if (cloud.timer >= 1) {
+        cloud.timer -= 1;
+        const dist = Math.hypot(this.player.x - cloud.x, this.player.z - cloud.z);
+        if (dist <= cloud.radius) {
+          this.damagePlayer(this.player.maxHealth * 0.02, false);
+        }
+      }
+    }
+
+    for (let i = this.blasts.length - 1; i >= 0; i--) {
+      const blast = this.blasts[i]!;
+      blast.life -= dt;
+      blast.timer += dt;
+      if (blast.life <= 0) {
+        this.blasts.splice(i, 1);
+        continue;
+      }
+      if (blast.timer >= 0.1) {
+        blast.timer = 0;
+        const dist = Math.hypot(this.player.x - blast.x, this.player.z - blast.z);
+        if (dist <= blast.radius) {
+          this.damagePlayer(this.player.maxHealth * 0.08, false);
+        }
+      }
+    }
+  }
+
   private updatePadsAndBuffs(dt: number): void {
     for (const pad of this.pads) {
       pad.cooldown = Math.max(0, pad.cooldown - dt);
@@ -1324,6 +1431,7 @@ export class Simulation {
   private updateStatusEffects(dt: number): void {
     const p = this.player;
     p.slowed = Math.max(0, p.slowed - dt);
+    if (p.slowed === 0) p.slowAmount = 0;
     p.rooted = Math.max(0, p.rooted - dt);
     if (p.burning > 0) {
       p.burning -= dt;

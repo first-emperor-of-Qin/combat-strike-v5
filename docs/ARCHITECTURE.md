@@ -63,7 +63,7 @@ combat-strike/
 │   │       ├── elite-skills.json   精英专属技能名
 │   │       ├── recoil.json         武器后坐力权重
 │   │       └── weapon-runtime.json 武器运行时数值修正
-│   │   └── test/              内容包自身测试（**当前尚未建立**，见 MIGRATION.md 第 9 节）
+│   │   └── test/              内容包自身测试（content.test.ts，10 个用例）
 │   └── game-core/             模拟内核：纯逻辑，不依赖 DOM
 │       ├── src/
 │       │   ├── sim/combat.ts      战斗模拟主体（1378 行）
@@ -371,6 +371,19 @@ interface MigrationReport {
 | `GET` | `/api/profile` | 是 | 读取档案与修订号 |
 | `PUT` | `/api/profile` | 是 | 写入档案（乐观并发） |
 | `POST` | `/api/profile/import` | 是 | 导入旧版存档 |
+
+每个端点都有对应的接口测试（`apps/api/test/`，共 18 个用例）：
+
+| 端点 | 测试 |
+| --- | --- |
+| `GET /api/health` | `GET /api/health > reports the database state and the api version`；`GET /api/health > returns the error envelope for an unknown route` |
+| `POST /api/auth/register` | `auth routes > registers a user, logs in and returns the same account on /api/me`；`auth routes > refuses to register the same email twice` |
+| `POST /api/auth/login` | `auth routes > rejects a wrong password with 401 and the error envelope`；`auth routes > rejects an unknown email with the same envelope` |
+| `POST /api/auth/logout` | `auth routes > invalidates the session on logout` |
+| 全部受保护端点 | `auth routes > rejects a protected route without a token`；`profile routes > requires authentication`；`POST /api/profile/import > requires authentication` |
+| `GET /api/profile` | `profile routes > returns the default profile with revision 0 when nothing was saved yet` |
+| `PUT /api/profile` | `profile routes > stores a profile and returns revision 1`；`profile routes > rejects a stale baseRevision with 409 and returns the current profile`；`profile routes > does not bump the revision when the payload is unchanged`；`profile routes > keeps one user out of another user profile`；`profile routes > rejects a profile with unknown fields` |
+| `POST /api/profile/import` | `POST /api/profile/import > converts a legacy blob and reports which keys were read`；`POST /api/profile/import > reports unreadable blobs instead of failing` |
 
 ### 7.2 认证
 

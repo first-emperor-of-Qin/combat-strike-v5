@@ -30,7 +30,7 @@
 
    ```bash
    npm run typecheck        # 四个 workspace 的类型检查
-   npm run test             # 单元测试（注意：见下方「已知问题」）
+   npm run test             # 单元测试（game-core 76 + content 10 + api 18 = 104 个用例，全部通过）
    npm run test:e2e         # Playwright 端到端
    ```
 
@@ -42,15 +42,16 @@
 
    | 层 | 命令 | 文件 | 规模 |
    | --- | --- | --- | --- |
-   | 内容包 + 模拟内核 + 存档 | `npm run test -w @combat-strike/game-core` | `packages/game-core/test/content.test.ts`、`simulation.test.ts`、`save.test.ts` | 54 个用例 |
+   | 模拟内核 + 存档 + 内容包断言 | `npm run test -w @combat-strike/game-core` | `packages/game-core/test/content.test.ts`、`simulation.test.ts`、`save.test.ts`、`elite.test.ts`、`rng.test.ts` | 76 个用例 |
+   | 内容包自身 | `npm run test -w @combat-strike/content` | `packages/content/test/content.test.ts` | 10 个用例 |
    | 服务端接口 | `npm run test -w @combat-strike/api` | `apps/api/test/{auth,profile,import,health}.test.ts` | 18 个用例 |
    | 端到端 | `npm run test:e2e` | `apps/web/test/e2e.spec.ts` | 14 个用例 |
 
 2. 回归基线是 [`MIGRATION.md`](./MIGRATION.md) 第 5 节「机制保护清单」——那张表的每一行都给出了「机制 → 旧版位置 → 新模块 → 回归测试」。**新增机制时，请同时在那一节补一行**，否则下次没人说得清这个行为是有意保留还是被改坏了。
 
-3. 重点关注 [`MIGRATION.md`](./MIGRATION.md) 第 7 节里标注了「**无自动化测试覆盖**」的条目——音频图拓扑（C18）、`AudioContext.resume()`（C19）、失焦暂停（C20）、监听器拆卸（C22）、清除存档（C25）、加载进度（C26）、设置项持久化（C27）、音效（C28）。这些是当前测试的空白区。
+3. 重点关注 [`MIGRATION.md`](./MIGRATION.md) 第 6 节里标注了「**无自动化测试覆盖**」的条目——音频图拓扑（C18）、`AudioContext.resume()`（C19）、失焦暂停（C20）、监听器拆卸（C22）、清除存档（C25）、加载进度（C26）、设置项持久化（C27）、音效（C28）。这些是当前测试的空白区。
 
-4. 已知的失败点：根 `npm run test` 会因为 `packages/content` 没有 `test/` 目录而在第二个 workspace 失败（退出码 1，`No test files found`）。**内容包的断言目前都在 `packages/game-core/test/content.test.ts` 里**，跑那个 workspace 即可覆盖。
+4. 已知的问题：内容包不变量目前有**两份**断言——`packages/content/test/content.test.ts`（中文用例名，10 个）与 `packages/game-core/test/content.test.ts`（英文用例名，11 个）。两处都要跑通；合并它们属于 `packages/` 的工作范围，见 [`MIGRATION.md`](./MIGRATION.md) 的提案 P6。
 
 ### 我是内容设计师
 
@@ -72,7 +73,7 @@
 4. 改完后的自检清单：
 
    - `npm run content:import` 成功，没有抛错；
-   - `npm run test -w @combat-strike/game-core` 通过（其中 `content pack` 分组会校验关卡数、章节、技能可解析性、占位文案、精英技能名）；
+   - `npm run test -w @combat-strike/game-core` 与 `npm run test -w @combat-strike/content` 都通过（两处都校验关卡数、章节、技能可解析性、占位文案、精英技能名）；
    - `npm run test:e2e` 通过（其中「图鉴不出现占位文案」与「图鉴展示装备与怪物两页，且数值来自内容包」两条直接覆盖内容展示）。
 
 5. **有两处内容缺口需要设计决策**，见 [`MIGRATION.md`](./MIGRATION.md) 第 7 节：
@@ -88,7 +89,7 @@ npm run dev            # 启动客户端（Vite）
 npm run dev:api        # 启动服务端（tsx watch）
 npm run build          # 构建全部四个 workspace
 npm run typecheck      # 类型检查
-npm run test           # 单元测试（内容包 workspace 缺失 test/ 目录，见上）
+npm run test           # 单元测试（三个 workspace 依次执行：game-core → content → api）
 npm run test:e2e       # 端到端
 npm run content:import # 由 tools/out/ 重新生成内容包
 npm run content:verify # 内容包校验
@@ -102,7 +103,6 @@ npm run db:seed        # 写入种子数据
 
 | 问题 | 位置 | 影响 |
 | --- | --- | --- |
-| `packages/content` 没有 `test/` 目录，根 `npm run test` 在该 workspace 以退出码 1 失败 | `packages/content/package.json` | 内容包断言目前寄生在 `packages/game-core/test/content.test.ts` |
 | 50 关的 `boss.passive` 全部为 `null`，BOSS 被动分支不触发 | `tools/out/deep.json` 的 `BOSS_BP_SUMMARY` 丢失了 `passive` 的值 | 12 条 BOSS 被动全部失效，详见 [`MIGRATION.md`](./MIGRATION.md) 第 7 节 |
 | 18 个精英技能在 `BOSS_SKILLS` 注册表中没有条目 | `packages/content/src/generated/boss-skills.ts` | 这些精英技能仍是无操作，详见 [`MIGRATION.md`](./MIGRATION.md) C16 |
 

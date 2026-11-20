@@ -40,7 +40,7 @@ const CATALOG = read('legacy-constants.json').weaponCatalog;
  * shipped per-level authored names for them in levels 1-30 (寒霜突刺,
  * 绝对零度突刺, ...) and the placeholder "精英技" in the generated levels.
  */
-const ELITE_SKILL_NAMES = JSON.parse(
+const ELITE_SKILLS = JSON.parse(
   readFileSync(resolve(root, 'packages/content/src/curated/elite-skills.json'), 'utf8')
 );
 const isPlaceholderName = (text) => !text || text === '精英技';
@@ -122,7 +122,9 @@ const chapterOf = (lv) => CHAPTERS.find((c) => lv >= c.from && lv <= c.to);
 // ---------------------------------------------------------------- boss tables
 const bossSkills = deep.BOSS_SKILLS;
 const bossPassives = deep.BOSS_PASSIVES;
-const blueprints = deep.BOSS_BP_SUMMARY;
+// The summary table drops the `passive` value, so the raw blueprint table is
+// used instead — otherwise every level would end up with a null passive.
+const blueprints = read('boss-blueprints.json').data;
 
 // ---------------------------------------------------------------- levels
 const legacyWaveCounts = snapshot.LEVEL_WAVE_COUNTS;
@@ -133,7 +135,7 @@ for (const entry of deep.LEVEL_SUMMARY) {
   if (!entry.raw) continue;
   const lv = entry.raw;
   const id = entry.index;
-  const bp = blueprints[id - 1] || {};
+  const bp = blueprints[String(id)] || {};
   const chap = chapterOf(id);
   const copy = COPY[String(id)];
 
@@ -220,7 +222,7 @@ for (const entry of deep.LEVEL_SUMMARY) {
       damage: lv.elite.damage,
       skill: lv.elite.skill,
       skillName: bossSkills[lv.elite.skill]?.name
-        || (isPlaceholderName(lv.elite.skillName) ? ELITE_SKILL_NAMES[lv.elite.skill] : lv.elite.skillName),
+        || (isPlaceholderName(lv.elite.skillName) ? ELITE_SKILLS[lv.elite.skill]?.name : lv.elite.skillName),
       skillCooldown: lv.elite.skillCooldown,
     },
     boss: {
@@ -324,6 +326,32 @@ writeFileSync(
   resolve(genDir, 'boss-hp.ts'),
   `${banner}\n/** Transcribed verbatim from the legacy window.__BOSS_HP_TABLE__ (baseline index.html:6375). */\nexport const BOSS_HP_TABLE: readonly number[] = ${ts(
     read('boss-hp-table.json').data
+  )};\n`
+);
+
+writeFileSync(
+  resolve(genDir, 'elite-skills.ts'),
+  `${banner}\nimport type { EliteSkillDef } from '../types.js';\n\n/**\n * The 18 elite abilities the legacy build actually implemented, ported with their\n * original numbers. The other 15 configured abilities reuse the BOSS_SKILLS\n * registry and are resolved at runtime.\n */\nexport const ELITE_SKILLS: EliteSkillDef[] = ${ts(
+    Object.entries(ELITE_SKILLS).map(([id, def]) => ({
+      id,
+      name: def.name,
+      kind: def.kind,
+      dash: def.dash,
+      pull: def.pull,
+      blink: def.blink,
+      radius: def.radius,
+      duration: def.duration,
+      hitRange: def.hitRange,
+      damageMult: def.damageMult,
+      slow: def.slow,
+      root: def.root,
+      burn: def.burn,
+      projectiles: def.projectiles,
+      spread: def.spread,
+      speed: def.speed,
+      life: def.life,
+      slowRange: def.slowRange,
+    }))
   )};\n`
 );
 

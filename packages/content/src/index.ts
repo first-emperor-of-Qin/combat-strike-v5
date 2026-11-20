@@ -11,6 +11,7 @@ import { WEAPONS } from './generated/weapons.js';
 import { DIFFICULTIES } from './generated/difficulty.js';
 import { BOSS_SKILLS, BOSS_PASSIVES } from './generated/boss-skills.js';
 import { BOSS_HP_TABLE } from './generated/boss-hp.js';
+import { ELITE_SKILLS } from './generated/elite-skills.js';
 import { LEVEL_MANIFEST } from './generated/manifest.js';
 import { CHAPTERS, GENERATED_LEVEL_COPY, chapterOfLevel } from './curated/copy.js';
 import recoilWeights from './curated/recoil.json' with { type: 'json' };
@@ -33,6 +34,7 @@ export { LEVELS };
 export { WEAPONS };
 export { DIFFICULTIES };
 export { BOSS_SKILLS, BOSS_PASSIVES };
+export { ELITE_SKILLS };
 
 /**
  * Boss HP table, transcribed verbatim from the legacy

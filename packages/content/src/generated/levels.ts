@@ -95,6 +95,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 2.5,
       "attackRange": 18,
       "damage": 120,
+      "shootInterval": 1.5,
       "skills": [
         {
           "id": "fireball_volley",
@@ -112,8 +113,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 6
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "molten_armor",
+      "passiveName": "熔岩护甲"
     },
     "terrain": {
       "type": "flat"
@@ -214,6 +215,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.5,
       "attackRange": 20,
       "damage": 140,
+      "shootInterval": 1.4,
       "skills": [
         {
           "id": "crystal_shards",
@@ -231,8 +233,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 7
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "crystal_resonance",
+      "passiveName": "水晶共鸣"
     },
     "terrain": {
       "type": "flat"
@@ -331,8 +333,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 11167487
       },
       "speed": 4,
-      "attackRange": 20,
+      "attackRange": 22,
       "damage": 160,
+      "shootInterval": 1.3,
       "skills": [
         {
           "id": "sand_burst",
@@ -350,8 +353,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 12
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "sand_armor",
+      "passiveName": "沙之护甲"
     },
     "terrain": {
       "type": "flat"
@@ -450,8 +453,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 16746496
       },
       "speed": 3,
-      "attackRange": 18,
+      "attackRange": 24,
       "damage": 180,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "ice_lance",
@@ -469,8 +473,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "frozen_aura",
+      "passiveName": "冰冻光环"
     },
     "terrain": {
       "type": "flat"
@@ -569,8 +573,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 11206400
       },
       "speed": 3.2,
-      "attackRange": 16,
+      "attackRange": 25,
       "damage": 220,
+      "shootInterval": 1.1,
       "skills": [
         {
           "id": "rocket_barrage",
@@ -588,8 +593,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 10
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "shield_regen",
+      "passiveName": "护盾再生"
     },
     "terrain": {
       "type": "flat"
@@ -688,8 +693,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 8965375
       },
       "speed": 3.8,
-      "attackRange": 18,
+      "attackRange": 22,
       "damage": 260,
+      "shootInterval": 1.3,
       "skills": [
         {
           "id": "ink_cloud",
@@ -707,8 +713,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "aquatic_healing",
+      "passiveName": "深海治愈"
     },
     "terrain": {
       "type": "flat"
@@ -807,8 +813,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 16776960
       },
       "speed": 4.5,
-      "attackRange": 20,
+      "attackRange": 26,
       "damage": 300,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "time_slow",
@@ -826,8 +833,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "temporal_echo",
+      "passiveName": "时间回响"
     },
     "terrain": {
       "type": "flat"
@@ -926,8 +933,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 8978312
       },
       "speed": 3,
-      "attackRange": 18,
+      "attackRange": 24,
       "damage": 360,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "plague_cloud",
@@ -945,8 +953,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 12
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "undying_will",
+      "passiveName": "不死意志"
     },
     "terrain": {
       "type": "flat"
@@ -1045,8 +1053,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 65416
       },
       "speed": 4,
-      "attackRange": 20,
+      "attackRange": 28,
       "damage": 420,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "void_bolt",
@@ -1064,8 +1073,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 13
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -1164,8 +1173,9 @@ export const LEVELS: LevelDef[] = [
         "accent": 11141375
       },
       "speed": 4.5,
-      "attackRange": 22,
+      "attackRange": 30,
       "damage": 500,
+      "shootInterval": 0.9,
       "skills": [
         {
           "id": "chaos_burst",
@@ -1183,8 +1193,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "eternal_cycle",
+      "passiveName": "永恒循环"
     },
     "terrain": {
       "type": "flat"
@@ -1285,6 +1295,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 20,
       "damage": 240,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "ice_lance",
@@ -1302,8 +1313,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 7
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "frozen_aura",
+      "passiveName": "冰冻光环"
     },
     "terrain": {
       "type": "flat"
@@ -1404,6 +1415,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 22,
       "damage": 260,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "crystal_shards",
@@ -1421,8 +1433,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "crystal_resonance",
+      "passiveName": "水晶共鸣"
     },
     "terrain": {
       "type": "flat"
@@ -1523,6 +1535,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 22,
       "damage": 280,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "tidal_wave",
@@ -1540,8 +1553,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 5
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "aquatic_healing",
+      "passiveName": "深海治愈"
     },
     "terrain": {
       "type": "flat"
@@ -1642,6 +1655,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 24,
       "damage": 300,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "time_slow",
@@ -1659,8 +1673,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "temporal_echo",
+      "passiveName": "时间回响"
     },
     "terrain": {
       "type": "flat"
@@ -1761,6 +1775,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 24,
       "damage": 360,
+      "shootInterval": 0.9,
       "skills": [
         {
           "id": "ice_lance",
@@ -1778,8 +1793,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "frozen_aura",
+      "passiveName": "冰冻光环"
     },
     "terrain": {
       "type": "flat"
@@ -1880,6 +1895,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 24,
       "damage": 380,
+      "shootInterval": 0.9,
       "skills": [
         {
           "id": "void_bolt",
@@ -1897,8 +1913,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 13
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -1999,6 +2015,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 26,
       "damage": 420,
+      "shootInterval": 0.85,
       "skills": [
         {
           "id": "entropy_wave",
@@ -2016,8 +2033,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "eternal_cycle",
+      "passiveName": "永恒循环"
     },
     "terrain": {
       "type": "flat"
@@ -2118,6 +2135,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 26,
       "damage": 460,
+      "shootInterval": 0.85,
       "skills": [
         {
           "id": "void_bolt",
@@ -2135,8 +2153,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 7
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -2237,6 +2255,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.8,
       "attackRange": 28,
       "damage": 500,
+      "shootInterval": 0.8,
       "skills": [
         {
           "id": "chaos_burst",
@@ -2254,8 +2273,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "eternal_cycle",
+      "passiveName": "永恒循环"
     },
     "terrain": {
       "type": "flat"
@@ -2356,6 +2375,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.2,
       "attackRange": 30,
       "damage": 600,
+      "shootInterval": 0.8,
       "skills": [
         {
           "id": "void_bolt",
@@ -2373,8 +2393,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -2475,6 +2495,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 26,
       "damage": 640,
+      "shootInterval": 0.8,
       "skills": [
         {
           "id": "solar_lance",
@@ -2492,8 +2513,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "flat"
@@ -2594,6 +2615,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.7,
       "attackRange": 26,
       "damage": 680,
+      "shootInterval": 0.8,
       "skills": [
         {
           "id": "radiant_nova",
@@ -2611,8 +2633,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 6
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "flat"
@@ -2713,6 +2735,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.8,
       "attackRange": 27,
       "damage": 720,
+      "shootInterval": 0.78,
       "skills": [
         {
           "id": "judgment_beam",
@@ -2730,8 +2753,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "flat"
@@ -2832,6 +2855,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.9,
       "attackRange": 28,
       "damage": 760,
+      "shootInterval": 0.76,
       "skills": [
         {
           "id": "blazing_pursuit",
@@ -2849,8 +2873,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "flat"
@@ -2951,6 +2975,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4,
       "attackRange": 29,
       "damage": 850,
+      "shootInterval": 0.72,
       "skills": [
         {
           "id": "sunburst_barrage",
@@ -2968,8 +2993,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 10
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "flat"
@@ -3070,6 +3095,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4,
       "attackRange": 27,
       "damage": 900,
+      "shootInterval": 0.72,
       "skills": [
         {
           "id": "aurora_curtain",
@@ -3087,8 +3113,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "flat"
@@ -3189,6 +3215,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.1,
       "attackRange": 28,
       "damage": 950,
+      "shootInterval": 0.7,
       "skills": [
         {
           "id": "starfall_flash",
@@ -3206,8 +3233,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "flat"
@@ -3308,6 +3335,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.2,
       "attackRange": 28,
       "damage": 1000,
+      "shootInterval": 0.68,
       "skills": [
         {
           "id": "aurora_curtain",
@@ -3325,8 +3353,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "flat"
@@ -3427,6 +3455,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.3,
       "attackRange": 29,
       "damage": 1060,
+      "shootInterval": 0.66,
       "skills": [
         {
           "id": "divine_summon",
@@ -3444,8 +3473,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "flat"
@@ -3546,6 +3575,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.5,
       "attackRange": 30,
       "damage": 1200,
+      "shootInterval": 0.6,
       "skills": [
         {
           "id": "starfall_flash",
@@ -3563,8 +3593,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 10
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "flat"
@@ -3665,6 +3695,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.8,
       "attackRange": 22,
       "damage": 170,
+      "shootInterval": 1.3,
       "skills": [
         {
           "id": "sand_burst",
@@ -3682,8 +3713,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 6
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "sand_armor",
+      "passiveName": "沙之护甲"
     },
     "terrain": {
       "type": "canyon",
@@ -3833,6 +3864,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 24,
       "damage": 180,
+      "shootInterval": 1.5,
       "skills": [
         {
           "id": "prism_beam",
@@ -3850,8 +3882,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "crystal_resonance",
+      "passiveName": "水晶共鸣"
     },
     "terrain": {
       "type": "ramp",
@@ -3998,6 +4030,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 23,
       "damage": 190,
+      "shootInterval": 1.4,
       "skills": [
         {
           "id": "frost_nova",
@@ -4015,8 +4048,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 12
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "frozen_aura",
+      "passiveName": "冰冻光环"
     },
     "terrain": {
       "type": "terraces",
@@ -4173,6 +4206,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 2.6,
       "attackRange": 24,
       "damage": 210,
+      "shootInterval": 1.4,
       "skills": [
         {
           "id": "lava_pool",
@@ -4190,8 +4224,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 6
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "molten_armor",
+      "passiveName": "熔岩护甲"
     },
     "terrain": {
       "type": "bowl",
@@ -4354,6 +4388,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 4.2,
       "attackRange": 26,
       "damage": 230,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "reality_fracture",
@@ -4371,8 +4406,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -4543,6 +4578,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 26,
       "damage": 250,
+      "shootInterval": 1.25,
       "skills": [
         {
           "id": "aurora_beam",
@@ -4560,8 +4596,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "pyramid",
@@ -4722,6 +4758,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 24,
       "damage": 220,
+      "shootInterval": 1.3,
       "skills": [
         {
           "id": "rocket_barrage",
@@ -4739,8 +4776,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "shield_regen",
+      "passiveName": "护盾再生"
     },
     "terrain": {
       "type": "slope",
@@ -4900,6 +4937,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 25,
       "damage": 240,
+      "shootInterval": 1.35,
       "skills": [
         {
           "id": "prism_beam",
@@ -4917,8 +4955,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 13
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "crystal_resonance",
+      "passiveName": "水晶共鸣"
     },
     "terrain": {
       "type": "flat"
@@ -5088,6 +5126,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 25,
       "damage": 260,
+      "shootInterval": 1.3,
       "skills": [
         {
           "id": "bone_spear",
@@ -5105,8 +5144,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 7
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "undying_will",
+      "passiveName": "不死意志"
     },
     "terrain": {
       "type": "canyon",
@@ -5264,6 +5303,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 26,
       "damage": 270,
+      "shootInterval": 1.25,
       "skills": [
         {
           "id": "tidal_wave",
@@ -5281,8 +5321,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "aquatic_healing",
+      "passiveName": "深海治愈"
     },
     "terrain": {
       "type": "bowl",
@@ -5441,6 +5481,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 26,
       "damage": 280,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "time_slow",
@@ -5458,8 +5499,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "temporal_echo",
+      "passiveName": "时间回响"
     },
     "terrain": {
       "type": "terraces",
@@ -5610,6 +5651,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 27,
       "damage": 300,
+      "shootInterval": 1.15,
       "skills": [
         {
           "id": "void_bolt",
@@ -5627,8 +5669,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 13
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "void_shield",
+      "passiveName": "虚空护盾"
     },
     "terrain": {
       "type": "flat"
@@ -5793,6 +5835,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 27,
       "damage": 320,
+      "shootInterval": 1.15,
       "skills": [
         {
           "id": "judgment_beam",
@@ -5810,8 +5853,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 12
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "pyramid",
@@ -5975,6 +6018,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 26,
       "damage": 340,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "solar_lance",
@@ -5992,8 +6036,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 10
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "solar_crown",
+      "passiveName": "曦金王冠"
     },
     "terrain": {
       "type": "slope",
@@ -6152,6 +6196,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3,
       "attackRange": 27,
       "damage": 360,
+      "shootInterval": 1.2,
       "skills": [
         {
           "id": "ice_lance",
@@ -6169,8 +6214,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "frozen_aura",
+      "passiveName": "冰冻光环"
     },
     "terrain": {
       "type": "hills",
@@ -6331,6 +6376,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.4,
       "attackRange": 28,
       "damage": 380,
+      "shootInterval": 1.15,
       "skills": [
         {
           "id": "blazing_pursuit",
@@ -6348,8 +6394,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "molten_armor",
+      "passiveName": "熔岩护甲"
     },
     "terrain": {
       "type": "flat"
@@ -6516,6 +6562,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.2,
       "attackRange": 28,
       "damage": 400,
+      "shootInterval": 1.1,
       "skills": [
         {
           "id": "tentacle_slam",
@@ -6533,8 +6580,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 9
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "aquatic_healing",
+      "passiveName": "深海治愈"
     },
     "terrain": {
       "type": "bowl",
@@ -6694,6 +6741,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 28,
       "damage": 430,
+      "shootInterval": 1.1,
       "skills": [
         {
           "id": "celestial_rain",
@@ -6711,8 +6759,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 8
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "celestial_ward",
+      "passiveName": "天穹守护"
     },
     "terrain": {
       "type": "slope",
@@ -6886,6 +6934,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.6,
       "attackRange": 29,
       "damage": 470,
+      "shootInterval": 1.05,
       "skills": [
         {
           "id": "judgment_beam",
@@ -6903,8 +6952,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 11
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "temporal_echo",
+      "passiveName": "时间回响"
     },
     "terrain": {
       "type": "canyon",
@@ -7075,6 +7124,7 @@ export const LEVELS: LevelDef[] = [
       "speed": 3.8,
       "attackRange": 30,
       "damage": 520,
+      "shootInterval": 1,
       "skills": [
         {
           "id": "reality_fracture",
@@ -7092,8 +7142,8 @@ export const LEVELS: LevelDef[] = [
           "cooldown": 10
         }
       ],
-      "passive": null,
-      "passiveName": "无"
+      "passive": "undying_will",
+      "passiveName": "不死意志"
     },
     "terrain": {
       "type": "pyramid",

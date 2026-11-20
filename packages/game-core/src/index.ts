@@ -10,6 +10,7 @@ export * from './util/clock.js';
 export * from './systems/damage.js';
 export * from './systems/weapon.js';
 export * from './systems/progression.js';
+export * from './systems/elite.js';
 export * from './sim/combat.js';
 export * from './save/schema.js';
 export * from './save/legacy-migration.js';

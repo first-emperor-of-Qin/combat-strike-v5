@@ -166,6 +166,26 @@ export interface BouncePadInstance {
   cooldown: number;
 }
 
+/** A lingering hazard created by an elite ability (the legacy's slime patches). */
+export interface CloudState {
+  x: number;
+  z: number;
+  radius: number;
+  /** Seconds remaining. */
+  life: number;
+  /** Elapsed time within the current damage tick. */
+  timer: number;
+}
+
+/** A one-off explosion created by an elite ability. */
+export interface BlastState {
+  x: number;
+  z: number;
+  radius: number;
+  life: number;
+  timer: number;
+}
+
 export interface BuffInstance {
   id: number;
   x: number;
@@ -234,6 +254,8 @@ export interface PlayerState {
   invuln: number;
   /** Active status effects. */
   slowed: number;
+  /** Strength of the slow, as the fraction of speed removed. */
+  slowAmount: number;
   burning: number;
   rooted: number;
   /** Kill streak counter. */

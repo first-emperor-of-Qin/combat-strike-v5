@@ -146,7 +146,7 @@ const v = g('LEVEL_WAVE_COUNTS');
 | `DIFFICULTY_CONFIG` | 10 档 | `baseline/index.html:7604` | 运行时真值 |
 | `__BOSS_HP_TABLE__` | 51 个条目 | `baseline/index.html:6375` | 索引 0 占位 + 50 关 |
 | `ENEMY_SHAPES` | 50 个 | `baseline/index.html:16861` | 敌人网格原型 |
-| `LEVEL_TERRAIN` / `LEVEL_VOID` / `LEVEL_HAZARDS` / `LEVEL_PADS` / `LEVEL_BUFFS` | 仅第 31～50 关 | `baseline/index.html:46774` 起 | 见第 5 节 |
+| `LEVEL_TERRAIN` / `LEVEL_VOID` / `LEVEL_HAZARDS` / `LEVEL_PADS` / `LEVEL_BUFFS` | 仅第 31～50 关 | `baseline/index.html:46774` 起 | 空洞边界颠倒等缺陷见 `docs/MIGRATION.md` C14 |
 | `TIER_BONUS` | 9 档 | `baseline/index.html:10823` | 装备加成 |
 | `TIER_DR` | 9 档 | `baseline/index.html:10835` | 减伤，**取最高档不叠加** |
 | `WEAPON_WEIGHTS` | 后坐力权重 | `baseline/index.html:10844` | — |

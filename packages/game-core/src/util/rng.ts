@@ -6,12 +6,26 @@
  * rewrite keeps every random decision inside a seeded stream so a run can be
  * replayed exactly from `(seed, level, difficulty, loadout)`.
  */
+/**
+ * splitmix32 finaliser — decorrelates a small seed before it is used as an
+ * xorshift32 state.
+ */
+function mixSeed(seed: number): number {
+  let z = (seed + 0x9e3779b9) >>> 0;
+  z = Math.imul(z ^ (z >>> 16), 0x21f0aaad) >>> 0;
+  z = Math.imul(z ^ (z >>> 15), 0x735a2d97) >>> 0;
+  z = (z ^ (z >>> 15)) >>> 0;
+  return z || 0x9e3779b9;
+}
+
 export class Rng {
   private state: number;
 
   constructor(seed: number) {
-    // xorshift32 requires a non-zero state.
-    this.state = (seed >>> 0) || 0x9e3779b9;
+    // xorshift32 requires a non-zero state, and a raw small seed produces a
+    // poorly distributed first output (near zero), which would bias the very
+    // first crit roll of a run. splitmix32 mixes the seed first.
+    this.state = mixSeed((seed >>> 0) || 0x9e3779b9);
   }
 
   /** Uniform in [0, 1). */
@@ -65,6 +79,6 @@ export class Rng {
   }
 
   setState(state: number): void {
-    this.state = (state >>> 0) || 0x9e3779b9;
+    this.state = mixSeed((state >>> 0) || 0x9e3779b9);
   }
 }
