@@ -514,6 +514,6 @@ const perStep = (performance.now() - t0) / 3600;
 
 ## 10. 相关文档
 
-- `docs/MIGRATION.md` — 迁移台账：50 关 / 44 武器 / 42 技能 / 12 被动逐项对照，C1～C30 缺陷修复记录
+- `docs/MIGRATION.md` — 迁移台账：50 关 / 44 武器 / 42 技能 / 12 被动逐项对照，C1～C32 缺陷修复记录
 - `docs/LEGACY-AUDIT.md` — 旧版基线的取证方法与死代码台账
 - `docs/README.md` — 文档索引与「从哪里开始」

@@ -340,3 +340,85 @@ describe('settlement', () => {
     expect(sim.kills).toBe(1);
   });
 });
+
+describe('悬崖与出生点', () => {
+  it('出生点落在悬崖里的关卡改为在检查点出生', () => {
+    // Levels 31 and 35 have a cliff that covers the world origin.
+    for (const level of [31, 35]) {
+      const sim = makeSim({ level });
+      expect(sim.phase).toBe('playing');
+      expect(sim.player.alive).toBe(true);
+      expect(sim.player.health).toBe(sim.player.maxHealth);
+      expect(sim.checkpoint.x).toBe(0);
+    }
+  });
+
+  it('掉入悬崖不会结束本局，而是回到检查点并恢复 60% 生命', () => {
+    const sim = makeSim({ level: 35 });
+    const before = sim.player.health;
+    // Walk into the cliff region.
+    sim.player.x = 10;
+    sim.player.z = 0;
+    sim.step(1 / 60, input({ moveZ: 1 }));
+    expect(sim.phase).toBe('playing');
+    expect(sim.player.alive).toBe(true);
+    expect(sim.player.health).toBeLessThan(before);
+    expect(sim.player.health).toBe(Math.round(sim.player.maxHealth * 0.6));
+    expect(sim.player.x).toBe(sim.checkpoint.x);
+    expect(sim.player.z).toBe(sim.checkpoint.z);
+  });
+
+  it('检查点本身不会落在悬崖内', () => {
+    for (let level = 31; level <= 50; level++) {
+      const sim = makeSim({ level });
+      const inside = sim.level.voids.some(
+        (v) =>
+          sim.checkpoint.x >= v.minX &&
+          sim.checkpoint.x <= v.maxX &&
+          sim.checkpoint.z >= v.minZ &&
+          sim.checkpoint.z <= v.maxZ,
+      );
+      expect(inside).toBe(false);
+    }
+  });
+});
+
+describe('出生点安全', () => {
+  it('每一关的出生点都不在悬崖或机关范围内', () => {
+    for (let level = 1; level <= 50; level++) {
+      const sim = makeSim({ level });
+      const def = sim.level;
+      const inVoid = def.voids.some(
+        (v) =>
+          sim.player.x >= v.minX &&
+          sim.player.x <= v.maxX &&
+          sim.player.z >= v.minZ &&
+          sim.player.z <= v.maxZ,
+      );
+      expect(inVoid, `level ${level} spawns inside a cliff`).toBe(false);
+      for (const hazard of def.hazards) {
+        const halfW = hazard.w / 2 + 0.6;
+        const halfD = hazard.d / 2 + 0.6;
+        const inside =
+          Math.abs(sim.player.x - hazard.x) <= halfW && Math.abs(sim.player.z - hazard.z) <= halfD;
+        expect(inside, `level ${level} spawns inside the ${hazard.kind} hazard`).toBe(false);
+      }
+    }
+  });
+
+  it('站着不动不会在第一波之前被机关打死', () => {
+    for (let level = 1; level <= 50; level++) {
+      const sim = makeSim({ level });
+      for (let i = 0; i < 60 * 8; i++) sim.step(1 / 60, input());
+      expect(sim.phase, `level ${level} died before wave 1`).toBe('playing');
+      expect(sim.player.alive).toBe(true);
+    }
+  });
+
+  it('出生点沿用旧版的 (0, 20)', () => {
+    // Levels whose spawn is safe keep the legacy coordinates.
+    const sim = makeSim({ level: 1 });
+    expect(sim.player.x).toBe(0);
+    expect(sim.player.z).toBe(20);
+  });
+});

@@ -253,6 +253,8 @@ function endRun(result: SettlementResult): void {
 
   if (result.outcome === 'victory') audio.victory();
   else audio.defeat();
+
+  void pushToCloud();
 }
 
 function togglePause(): void {
@@ -423,7 +425,11 @@ function openLegacyImport(): void {
     }
     // Keep a backup of the current profile before overwriting it.
     window.localStorage.setItem('cs_profile_v5_pre_legacy_import', JSON.stringify(profileStore.current));
-    profileStore.replace(report.profile);
+    profileStore.replace({
+      ...report.profile,
+      // An imported save has NOT been confirmed by the server yet.
+      syncState: 'imported',
+    });
     byId('legacy-import-modal').classList.add('is-hidden');
     screens.render();
     toast(`已导入旧存档（读取 ${report.keysRead.length} 项）`, 'success');
@@ -559,6 +565,34 @@ function handleGameEvent(event: Parameters<typeof hud.handleEvent>[0]): void {
   }
 }
 
+/**
+ * Pushes the local profile to the cloud.
+ *
+ * The server answers 409 when another device already wrote a newer revision;
+ * in that case the local copy is NOT overwritten, and the profile stays
+ * marked as unconfirmed until the player resolves the conflict.
+ */
+async function pushToCloud(): Promise<void> {
+  if (!api.signedIn) return;
+  const local = profileStore.current;
+  try {
+    const result = await api.pushProfile(local, local.revision);
+    if ('conflict' in result) {
+      profileStore.update((draft) => {
+        draft.syncState = 'imported';
+      });
+      toast('云端存档有更新，本地改动暂未同步', 'error');
+      return;
+    }
+    profileStore.update((draft) => {
+      draft.revision = result.revision;
+      draft.syncState = 'synced';
+    });
+  } catch {
+    // Offline or the API is unavailable: the local save stays authoritative.
+  }
+}
+
 // ---------------------------------------------------------------- boot
 
 function bindGlobalButtons(): void {
@@ -629,15 +663,28 @@ function boot(): void {
   if (api.signedIn) {
     void api
       .fetchProfile()
-      .then((result) => {
-        if (result) profileStore.replace(result.profile);
+      .then(async (result) => {
+        if (!result) return;
+        const local = profileStore.current;
+        // The server copy wins only when the local one was never confirmed.
+        if (local.syncState === 'synced' && local.revision > result.revision) {
+          await pushToCloud();
+          return;
+        }
+        profileStore.replace({ ...result.profile, syncState: 'synced' });
       })
       .catch(() => undefined);
   }
 
-  // Flush the profile when the page goes away.
-  window.addEventListener('pagehide', () => profileStore.dispose());
-  window.addEventListener('beforeunload', () => profileStore.dispose());
+  // Release every resource when the page goes away.
+  const teardown = () => {
+    profileStore.dispose();
+    input?.dispose();
+    audio.dispose();
+    renderer?.dispose();
+  };
+  window.addEventListener('pagehide', teardown);
+  window.addEventListener('beforeunload', teardown);
 }
 
 boot();

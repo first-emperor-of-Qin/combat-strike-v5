@@ -124,6 +124,7 @@ export class ScreenManager {
       el('div', { class: 'home__topbar' }, [
         el('span', { class: 'topbar__gold', text: `金币 ${formatGold(profile.progression.gold)}` }),
         el('span', { class: 'topbar__user', text: `最高通关 ${cleared} 关` }),
+        el('span', { class: 'topbar__sync', text: syncLabel(profile.syncState) }),
       ]),
     );
 
@@ -720,6 +721,23 @@ export class ScreenManager {
 }
 
 // ---------------------------------------------------------------- helpers
+
+/**
+ * Describes where the current save came from.
+ * An imported save has not been confirmed by the server, so it is labelled
+ * explicitly rather than presented as ordinary progress.
+ */
+export function syncLabel(state: 'local' | 'imported' | 'synced'): string {
+  switch (state) {
+    case 'synced':
+      return '云端已同步';
+    case 'imported':
+      return '本地导入 · 尚未云端确认';
+    case 'local':
+    default:
+      return '本地存档';
+  }
+}
 
 /** One-line summary of a weapon's combat stats, derived from the rules. */
 export function weaponStatsLine(weapon: WeaponDef): string {

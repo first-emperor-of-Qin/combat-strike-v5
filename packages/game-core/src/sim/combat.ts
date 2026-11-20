@@ -82,6 +82,13 @@ export const WEAPON_XP_PER_KILL = 10;
 export const WEAPON_XP_PER_BOSS = 50;
 export const MAX_WEAPON_LEVEL = 10;
 
+/** Player spawn point, matching the legacy build (baseline index.html:20326). */
+export const SPAWN_X = 0;
+export const SPAWN_Z = 20;
+
+/** Extra margin around a hazard footprint that also counts as a hit. */
+export const HAZARD_HIT_MARGIN = 0.6;
+
 export interface SimulationInput {
   moveX: number;
   moveZ: number;
@@ -120,6 +127,7 @@ export type SimulationEvent =
   | { type: 'buff-taken'; kind: string }
   | { type: 'hazard-hit'; kind: string }
   | { type: 'bounce'; x: number; z: number }
+  | { type: 'player-fell'; x: number; z: number }
   | { type: 'settled'; result: SettlementResult };
 
 interface SpawnPoint { x: number; z: number }
@@ -170,6 +178,13 @@ export class Simulation {
   /** Events for the renderer and the audio mixer to consume. */
   events: SimulationEvent[] = [];
 
+  /**
+   * The respawn point after falling into a cliff.
+   * The legacy used `{ x: 0, z: (BOUNDS.maxZ - BOUNDS.minZ) * 0.4 }`
+   * (baseline index.html:47036) and restored 60% health.
+   */
+  checkpoint: { x: number; z: number };
+
   private nextId = 1;
   private weaponXpGained: Record<string, number> = {};
   private damageCtx: DamageContext;
@@ -199,6 +214,22 @@ export class Simulation {
     for (const state of this.weapons.values()) refillAmmo(state);
 
     this.buildTerrain();
+
+    // The checkpoint must never sit inside a cliff.
+    const bounds = this.bounds;
+    this.checkpoint = { x: 0, z: (bounds.maxZ - bounds.minZ) * 0.4 };
+    if (this.isVoidAt(this.checkpoint.x, this.checkpoint.z)) {
+      this.checkpoint = { x: 0, z: 0 };
+    }
+
+    // The legacy spawned the player at (0, 20) rather than the world origin
+    // (baseline index.html:20326, :20336). Seven levels place a hazard on
+    // the origin, so the origin would be an instant death trap — and two
+    // levels (37, 48) place a hazard on (0, 20) itself.
+    const spawn = this.findSafeSpawn();
+    this.player.x = spawn.x;
+    this.player.z = spawn.z;
+
     this.phase = 'playing';
   }
 
@@ -384,9 +415,25 @@ export class Simulation {
       p.x = Math.min(bounds.maxX, Math.max(bounds.minX, nextX));
       p.z = Math.min(bounds.maxZ, Math.max(bounds.minZ, nextZ));
     } else {
-      // The legacy killed the player for falling into a void region.
-      this.damagePlayer(p.maxHealth, true);
+      // The legacy did not end the run when the player fell into a pit: it
+      // zeroed the health and respawned them at the checkpoint with 60%.
+      this.fallIntoVoid();
     }
+  }
+
+  /**
+   * Handles falling into a cliff.
+   * The legacy set the health to zero and respawned the player at the
+   * checkpoint with 60% health (baseline index.html:47131-47142, :47191-47202).
+   */
+  private fallIntoVoid(): void {
+    const p = this.player;
+    p.health = 0;
+    p.x = this.checkpoint.x;
+    p.z = this.checkpoint.z;
+    p.health = Math.round(p.maxHealth * 0.6);
+    p.invuln = 2;
+    this.events.push({ type: 'player-fell', x: p.x, z: p.z });
   }
 
   private healthRegenPerSecond(): number {
@@ -1320,6 +1367,53 @@ export class Simulation {
 
   // ---------------------------------------------------------------- terrain
 
+  /**
+   * Finds a spawn point that is neither inside a cliff nor inside a hazard.
+   *
+   * The legacy always spawned at (0, 20), which is inside the crusher of
+   * level 37 and inside the laser of level 48 — a spawn trap that costs the
+   * player 40-50% of their health per hit. This is a confirmed legacy
+   * defect; the rewrite picks a safe spot instead of changing the level data.
+   */
+  private findSafeSpawn(): { x: number; z: number } {
+    const candidates = [
+      { x: SPAWN_X, z: SPAWN_Z },
+      { x: this.checkpoint.x, z: this.checkpoint.z },
+      { x: 0, z: 0 },
+      { x: 14, z: 14 },
+      { x: -14, z: 14 },
+      { x: 14, z: -14 },
+      { x: -14, z: -14 },
+      { x: 0, z: 32 },
+      { x: 0, z: -32 },
+      { x: 24, z: 0 },
+      { x: -24, z: 0 },
+    ];
+    for (const candidate of candidates) {
+      if (this.isVoidAt(candidate.x, candidate.z)) continue;
+      if (this.isHazardAt(candidate.x, candidate.z)) continue;
+      if (!this.isInsideBounds(candidate.x, candidate.z)) continue;
+      return candidate;
+    }
+    return { x: this.checkpoint.x, z: this.checkpoint.z };
+  }
+
+  /** True when the point sits inside a hazard's hit footprint. */
+  private isHazardAt(x: number, z: number): boolean {
+    for (const hazard of this.hazards) {
+      const halfW = hazard.w / 2 + HAZARD_HIT_MARGIN;
+      const halfD = hazard.d / 2 + HAZARD_HIT_MARGIN;
+      if (Math.abs(x - hazard.x) > halfW || Math.abs(z - hazard.z) > halfD) continue;
+      return true;
+    }
+    return false;
+  }
+
+  private isInsideBounds(x: number, z: number): boolean {
+    const bounds = this.bounds;
+    return x > bounds.minX + 2 && x < bounds.maxX - 2 && z > bounds.minZ + 2 && z < bounds.maxZ - 2;
+  }
+
   private isVoidAt(x: number, z: number): boolean {
     for (const v of this.level.voids) {
       if (x >= v.minX && x <= v.maxX && z >= v.minZ && z <= v.maxZ) return true;
@@ -1338,8 +1432,8 @@ export class Simulation {
       if (!hazard.active || hazard.invuln > 0) continue;
       const dx = Math.abs(this.player.x - hazard.x);
       const dz = Math.abs(this.player.z - hazard.z);
-      const halfW = hazard.w / 2 + 0.6;
-      const halfD = hazard.d / 2 + 0.6;
+      const halfW = hazard.w / 2 + HAZARD_HIT_MARGIN;
+      const halfD = hazard.d / 2 + HAZARD_HIT_MARGIN;
       if (dx > halfW || dz > halfD) continue;
 
       hazard.invuln = 0.9;

@@ -84,8 +84,20 @@ export const progressionSchema = z.object({
   difficultySkipCards: z.number().int().nonnegative(),
 });
 
+/**
+ * Provenance of the profile.
+ *
+ *  - `local`   : created on this device, never pushed to the server.
+ *  - `imported`: came from a legacy save or a manual import; the server has
+ *                NOT confirmed it yet.
+ *  - `synced`  : the server holds this exact revision.
+ */
+export const syncStateSchema = z.enum(['local', 'imported', 'synced']);
+
 export const profileSchema = z.object({
   schemaVersion: z.number().int(),
+  /** Provenance of the save; see `syncStateSchema`. */
+  syncState: syncStateSchema,
   /** Monotonic revision, used for optimistic concurrency on the server. */
   revision: z.number().int().nonnegative(),
   /** Epoch milliseconds of the last local write. */
@@ -149,6 +161,7 @@ export const DEFAULT_LOADOUT: ProfileLoadout = {
 export function createDefaultProfile(now = Date.now()): PlayerProfile {
   return {
     schemaVersion: PROFILE_SCHEMA_VERSION,
+    syncState: 'local',
     revision: 0,
     updatedAt: now,
     progression: {
@@ -184,6 +197,7 @@ export function normaliseProfile(input: unknown, now = Date.now()): PlayerProfil
 
   const merged: PlayerProfile = {
     schemaVersion: PROFILE_SCHEMA_VERSION,
+    syncState: raw.syncState === 'imported' || raw.syncState === 'synced' ? raw.syncState : 'local',
     revision: typeof raw.revision === 'number' && Number.isFinite(raw.revision) ? Math.max(0, Math.floor(raw.revision)) : 0,
     updatedAt: typeof raw.updatedAt === 'number' && Number.isFinite(raw.updatedAt) ? raw.updatedAt : now,
     progression: { ...base.progression, ...(raw.progression ?? {}) },

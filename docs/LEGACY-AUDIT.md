@@ -458,6 +458,6 @@ node -e "const j=require('./tools/out/deep.json'); console.log(Object.keys(j.dat
 
 ## 10. 相关文档
 
-- `docs/MIGRATION.md` — 迁移台账与 C1～C30 缺陷修复记录
+- `docs/MIGRATION.md` — 迁移台账与 C1～C32 缺陷修复记录
 - `docs/ARCHITECTURE.md` — 重写版的选型与架构
 - `docs/README.md` — 文档索引
