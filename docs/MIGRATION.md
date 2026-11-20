@@ -98,7 +98,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 通过 | 内容包校验通过，关卡数据完整 | `packages/game-core/test/content.test.ts` → `content pack > contains all 50 levels with unique ids and 10 chapters` |
 | 通过（纯 BOSS） | 该关三波全为 0，只有 BOSS | `content pack > keeps the four pure-boss levels at 15/20/25/30` |
 | 通过（文案已覆盖） | 旧版模板占位描述已由人工文案替换 | `packages/content/src/curated/copy.json`；`content pack > keeps every elite skill name real` |
-| 通过（文案已覆盖；空洞边界已修正） | 旧版空洞矩形边界颠倒（`minX > maxX`），导入器已规范化 | 旧版 `baseline/index.html:46782`（第 31 关）、`:46826`（第 39 关）；`content pack > validates without errors` |
+| 通过（文案已覆盖；空洞边界已修正） | 旧版空洞矩形边界颠倒（`minX > maxX`），导入器已规范化 | 旧版 `baseline/index.html:46787`（第 31 关）、`:46826`（第 39 关）；`content pack > validates without errors` |
 | 通过（文案已覆盖；旧版无空洞条目） | 旧版 `LEVEL_VOID` 中该关无条目，重写同样为空 | 旧版 `baseline/index.html:46774` 起的 `LEVEL_VOID` 表 |
 | 通过（文案已覆盖；C17 未修复） | 第 35 关「崩解平台」的塌陷平台机制在旧版就不存在，重写未补 | 见第 7 节 C17、第 8 节 |
 
@@ -276,7 +276,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 15 / 20 / 25 / 30 为纯 BOSS 关 | `baseline/index.html:16796`（`LEVEL_WAVE_COUNTS`） | `packages/content/src/index.ts` → `PURE_BOSS_LEVELS` | `content pack > keeps the four pure-boss levels at 15/20/25/30`；`wave scheduler > treats levels 15/20/25/30 as pure boss fights` |
 | 每关固定 3 波（小怪 / 精英 / BOSS） | `baseline/index.html:17438`（`startNextWave`） | `packages/game-core/src/sim/combat.ts` | `wave scheduler > runs three waves: minions, elites, then the boss` |
 | 每 0.5 秒生成 3 个敌人 | `baseline/index.html:16781-16782` | `packages/game-core/src/sim/combat.ts` | `wave scheduler > spawns minions at 3 every 0.5 seconds` |
-| 波间间隔 3.0 秒 | `baseline/index.html:17478`（`waveDelay = 3.0`） | `packages/game-core/src/sim/combat.ts` | 由 `wave scheduler` 用例覆盖 |
+| 波间间隔 3.0 秒 | `baseline/index.html:17476`（`waveDelay = 3.0`） | `packages/game-core/src/sim/combat.ts` | 由 `wave scheduler` 用例覆盖 |
 | BOSS 血量表 4,000 万起、每关 ×1.28 | `baseline/index.html:6375`（`__BOSS_HP_TABLE__`） | `packages/content/src/generated/boss-hp.ts` | `content pack > reproduces the legacy boss HP table exactly` |
 | 小怪血量为 BOSS 血量的 1% / 2% | `baseline/index.html:6416` 起 | `packages/content/src/index.ts` → `minionHpFor()` | `content pack > derives minion health from 1% / 2% of the boss health` |
 | 10 档难度倍率阶梯 | `baseline/index.html:7604`（`DIFFICULTY_CONFIG`） | `packages/content/src/generated/difficulty.ts` | `content pack > exposes the ten difficulty tiers with the legacy multiplier ladder` |
@@ -288,7 +288,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 武器等级：每级 +5% 伤害、+1% 暴击、−3% 换弹（下限 0.5×）、上限 10 级 | `baseline/index.html:16575` | `packages/game-core/src/systems/damage.ts` + `systems/progression.ts` | `damage pipeline > adds 5% per weapon level`；`progression > unlocks the next difficulty tier on clear, capped at 10` |
 | 武器经验：击杀 +10、BOSS +50、升级需 100×等级 | `baseline/index.html:16575` 起 | `packages/game-core/src/systems/progression.ts` → `weaponXpForNextLevel()` / `applyWeaponXp()` | `settlement > awards score and weapon XP per kill` |
 | 得分：击杀 100、BOSS 5000、连杀 (streak−1)×50 | 旧版计分函数 | `packages/game-core/src/sim/combat.ts` | `settlement > awards score and weapon XP per kill` |
-| 通关只解锁下一档难度，不给金币 / 经验 / 不解锁下一关 | `baseline/index.html:7618-7621` | `packages/game-core/src/systems/progression.ts` → `calculateUnlockedDifficulty()` | `progression > unlocks the next difficulty tier on clear, capped at 10` |
+| 通关只解锁下一档难度，不给金币 / 经验 / 不解锁下一关 | `baseline/index.html:7621-7624` | `packages/game-core/src/systems/progression.ts` → `calculateUnlockedDifficulty()` | `progression > unlocks the next difficulty tier on clear, capped at 10` |
 | 胜利条件是 BOSS 死亡而非波次计数 | 旧版结算流程 | `packages/game-core/src/sim/combat.ts` | `settlement > ends the run in victory when the boss dies` |
 | 玩家死亡结算为失败 | 旧版结算流程 | `packages/game-core/src/sim/combat.ts` | `settlement > ends the run in defeat when the player dies` |
 | 弹匣消耗与自动换弹 | 旧版射击逻辑 | `packages/game-core/src/systems/weapon.ts` | `weapon behaviour > consumes ammunition and auto-reloads when the magazine empties`；`weapon behaviour > blocks firing while reloading` |
@@ -302,8 +302,14 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 精英技能显示名为真实名称（非占位） | 旧版 `LEVELS[].elite.skillName` | `packages/content/src/curated/elite-skills.json` + `curated/copy.json` | `content pack > keeps every elite skill name real` |
 | 模拟结果与随机种子绑定 | —（旧版用 `Math.random()`，不可复现） | `packages/game-core/src/util/rng.ts` | `simulation determinism > produces identical results for the same seed`；`simulation determinism > produces different results for a different seed` |
 | 帧率无关（30 / 60 / 144 FPS 行为一致） | 旧版不满足 | `packages/game-core/src/util/clock.ts` → `FixedStepClock` | `simulation determinism > does not depend on the frame rate`；`weapon behaviour > fires at the weapon interval, independent of the frame rate` |
-| 旧版存档六个键全部迁移 | 旧版 localStorage | `packages/game-core/src/save/legacy-migration.ts` | `POST /api/profile/import > converts a legacy blob and reports which keys were read`；`POST /api/profile/import > reports unreadable blobs instead of failing` |
-| 存档写入带版本号与修订号 | 旧版无 | `packages/game-core/src/save/schema.ts` → `PROFILE_SCHEMA_VERSION` | `profile routes > stores a profile and returns revision 1`；`profile routes > returns the default profile with revision 0 when nothing was saved yet` |
+| 旧版存档六个键全部迁移 | 旧版 localStorage | `packages/game-core/src/save/legacy-migration.ts` | `legacy save migration > reads the main save and migrates gold, weapons and loadout`；`legacy save migration > reads every legacy key from a storage-like object`；`POST /api/profile/import > converts a legacy blob and reports which keys were read`；`POST /api/profile/import > reports unreadable blobs instead of failing` |
+| 伙伴键是裸字符串而非 JSON | 旧版 `cs_companion_v1` | 同上 | `legacy save migration > reads the companion key as a bare string, not JSON` |
+| 旧版唯一的键位迁移 `KeyE` → 中键 | 旧版 `baseline/index.html:17607` | 同上 | `legacy save migration > applies the legacy KeyE -> middle-mouse weapon-skill migration` |
+| 英雄名册与主档共享金币经济，一起迁移 | 旧版 `cs_characters_v1` | 同上 | `legacy save migration > migrates the character roster together with the main save`；`legacy save migration > falls back to the starter hero when the selected one is not owned` |
+| 损坏的旧档不被静默丢弃 | 旧版 | 同上 | `legacy save migration > reports a corrupt main save instead of losing the profile silently`；`legacy save migration > rejects a save blob without gold or ownedWeapons, like the legacy loader did` |
+| 迁移可撤销（保留原始快照） | 旧版无 | 同上 | `legacy save migration > keeps a backup of the original blobs for an undo` |
+| 存档写入带版本号与修订号 | 旧版无 | `packages/game-core/src/save/schema.ts` → `PROFILE_SCHEMA_VERSION` | `profile routes > stores a profile and returns revision 1`；`profile routes > returns the default profile with revision 0 when nothing was saved yet`；`profile storage > round-trips a profile through storage` |
+| 主档损坏时回退备份 | 旧版无 | `packages/game-core/src/save/local-store.ts` | `profile storage > falls back to the backup when the main document is corrupt`；`profile storage > does not replace a good backup with a corrupt main document`；`profile storage > returns a usable default when nothing is stored` |
 | 存档冲突返回 409 且带当前档 | 旧版无 | `apps/api/src/routes/profile.ts` | `profile routes > rejects a stale baseRevision with 409 and returns the current profile` |
 | 重复提交不推进修订号 | 旧版无 | 同上 | `profile routes > does not bump the revision when the payload is unchanged` |
 | 账号之间档案隔离 | 旧版无 | `apps/api/src/routes/profile.ts` + `apps/api/migrations/001_init.sql` | `profile routes > keeps one user out of another user profile` |
@@ -363,7 +369,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 字段 | 内容 |
 | --- | --- |
 | 现象 | 按 X 键对绝大多数武器没有任何反应；界面上的「雷霆万钧 [X]」计时器永远显示「就绪」。 |
-| 旧代码位置 | `baseline/index.html:29642`（`activateThunderBeamSkill()` 函数体只有 `return;`，注释「保留为空占位」）、`:31819` 与 `:32005`（X 键分发） |
+| 旧代码位置 | `baseline/index.html:29642`（`activateThunderBeamSkill()` 函数体只有 `return;`，注释「保留为空占位」）、`:31819` 与 `:32006`（X 键分发） |
 | 影响范围 | 44 把武器中 42 把的 X 键为空操作；仅 `thousandumbrella`（千机伞变形）与 `thor`（托尔之触）有独立实现。配套的 `skillXActive`（`:11257`）在 9 处引用中**只被赋值为 false**，从未被置 true，因此 `skillXTimer` / `skillXCooldown` / `thunderBeamAutoFireTimer` / `THUNDER_BEAM_BASE_DMG`（`:13221`，消费点 `:29522`）构成完全不可达的死代码。 |
 | 修复方式 | 重写不复活这条管线。武器状态机 `packages/game-core/src/systems/weapon.ts` 中与武器特殊相关的状态仅保留 `specialCooldown` / `specialActive` 两个字段（`packages/game-core/src/types.ts:203-205`），实际技能由各槽位自己的实现提供。 |
 | 验证方式 | `packages/game-core/src/systems/weapon.ts` 顶部注释明确记录该管线不复现；`weapon behaviour > fires at the weapon interval, independent of the frame rate` 等用例确认武器状态机不依赖 `skillX`。**注意**：仓库内 `packages/game-core/src/sim/combat.ts:752` 的注释仍写着旧版「只实现了 33 个中的 10 个」，与实测不符，详见本节 C16。 |
@@ -373,7 +379,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 字段 | 内容 |
 | --- | --- |
 | 现象 | 玩家实际暴击率只有 1%，图鉴与面板显示的暴击率（含装备加成）大于 1%，两者对不上。 |
-| 旧代码位置 | `baseline/index.html:29406`（`Math.random() < (CRIT_CHANCE + (equippedPrimary === 'genesislight' ? GENESISLIGHT_CRIT : 0))`），对比 `damageEnemy()` 路径使用 `getEffectiveCritChance()` |
+| 旧代码位置 | `baseline/index.html:29405`（`Math.random() < (CRIT_CHANCE + (equippedPrimary === 'genesislight' ? GENESISLIGHT_CRIT : 0))`），对比 `damageEnemy()` 路径使用 `getEffectiveCritChance()` |
 | 影响范围 | 全部武器的暴击率；初始武器实际 1% 而面板显示 ≥2%。 |
 | 修复方式 | 统一到 `packages/game-core/src/systems/damage.ts` 的 `getCritChance(ctx, weaponLevel)`，统一计算 `CRIT_CHANCE + 装备暴击 + 0.01 × (武器等级 − 1)`。 |
 | 验证方式 | `damage pipeline > includes the equipment crit bonus in the crit chance` 断言无装备时为 `0.01`、装备加成 0.1 时为 `0.11`。 |
@@ -413,7 +419,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 字段 | 内容 |
 | --- | --- |
 | 现象 | 装备增伤武器后，「能量防卫者」护盾（+50%）与「命运审判」天平（+40%）的增伤完全失效。 |
-| 旧代码位置 | `baseline/index.html:16429-16431`（`if (amplify > 0) { return ...; }`），而 ×1.5 在 `:16433`、×1.4 在 `:16437` |
+| 旧代码位置 | `baseline/index.html:16429-16431`（`if (amplify > 0) { return ...; }`），而 ×1.5 在 `:16434`、×1.4 在 `:16438` |
 | 影响范围 | 所有增伤武器与两种增伤状态的叠加；隐性削减实际伤害最高约 40%。 |
 | 修复方式 | `calcDamage()` 改为顺序相乘、不提前返回，见 `packages/game-core/src/systems/damage.ts`。 |
 | 验证方式 | `damage pipeline > applies the amplify, energy-defender and fate multipliers together` 分别断言 36000（×2 增伤）、27000（×1.5 护盾）、25200（×1.4 命运）。 |
@@ -453,7 +459,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | 字段 | 内容 |
 | --- | --- |
 | 现象 | 第 31、39 关的深坑画在画面上，但玩家永远掉不下去；第 38、43、46 关根本没有深坑。 |
-| 旧代码位置 | `baseline/index.html:46782`（`LEVEL_VOID[31] = [{ minX:20, maxX:-52, … }]`）、`:46826`（`LEVEL_VOID[39] = [{ minX:26, maxX:-54, … }]`）——两处 `minX > maxX`；`:46774` 起的 `LEVEL_VOID` 表中无第 38 / 43 / 46 关条目 |
+| 旧代码位置 | `baseline/index.html:46787`（`LEVEL_VOID[31] = [{ minX:20, maxX:-52, … }]`）、`:46826`（`LEVEL_VOID[39] = [{ minX:26, maxX:-54, … }]`）——两处 `minX > maxX`；`:46774` 起的 `LEVEL_VOID` 表中无第 38 / 43 / 46 关条目 |
 | 影响范围 | 4 关的地形判定；视觉与实际碰撞不符。 |
 | 修复方式 | 导入器对空洞矩形做 `Math.min` / `Math.max` 规范化（`tools/content-import/import-legacy-content.mjs:150-153`），第 38 / 43 / 46 关保持为空数组。 |
 | 验证方式 | `packages/content/src/index.ts` 的 `validateContent()` 对每条空洞断言 `minX <= maxX && minZ <= maxZ`；`content pack > validates without errors` 断言错误列表为空。 |
@@ -744,7 +750,7 @@ npm run test -w @combat-strike/game-core   # 校验内容包与模拟内核
 | `packages/content` 测试 | 根脚本引用 `npm run test -w @combat-strike/content` | 该 workspace **没有 `test/` 目录**，`vitest run` 以「No test files found」退出码 1 失败 | 见下 |
 | BOSS 被动接线 | — | 50 关 `boss.passive` 全为 `null`，见第 7 节第 1 条 | 见下 |
 
-**内容包测试缺口**：`packages/content/package.json` 定义了 `verify` 与 `test` 脚本（均为 `vitest run`），但该包没有 `test/` 目录也没有 `vitest.config.ts`，因此根 `npm run test` 会在第二个 workspace 失败。内容包的断言目前全部寄生在 `packages/game-core/test/content.test.ts` 中（`describe('content pack')` 共 11 个用例）。本文件引用的所有内容包断言均来自该文件，已实测通过（39 个用例全部通过）。补齐 `packages/content/test/` 属于 `packages/` 的工作范围，本文档只记录。
+**内容包测试缺口**：`packages/content/package.json` 定义了 `verify` 与 `test` 脚本（均为 `vitest run`），但该包没有 `test/` 目录也没有 `vitest.config.ts`，因此根 `npm run test` 会在第二个 workspace 失败。内容包的断言目前全部寄生在 `packages/game-core/test/content.test.ts` 中（`describe('content pack')` 共 11 个用例）。本文件引用的所有内容包断言均来自该文件，已实测通过（`packages/game-core` 三个测试文件共 54 个用例全部通过）。补齐 `packages/content/test/` 属于 `packages/` 的工作范围，本文档只记录。
 
 ---
 
