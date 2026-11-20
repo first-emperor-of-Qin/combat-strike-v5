@@ -147,7 +147,7 @@ export class GameRenderer {
     const groundGeo = new THREE.PlaneGeometry(roomSize, roomSize, 24, 24);
     groundGeo.rotateX(-Math.PI / 2);
     const groundMat = new THREE.MeshStandardMaterial({
-      color: theme.ground,
+      color: lift(theme.ground, 0.2),
       roughness: theme.groundRough,
       metalness: theme.groundMetal,
     });
@@ -157,7 +157,7 @@ export class GameRenderer {
 
     // Walls.
     const wallMat = new THREE.MeshStandardMaterial({
-      color: theme.wall,
+      color: lift(theme.wall, 0.16),
       roughness: theme.wallRough,
       metalness: 0.1,
       transparent: theme.wallOpacity < 1,
@@ -177,11 +177,11 @@ export class GameRenderer {
     }
 
     // Lighting.
-    const hemi = new THREE.HemisphereLight(theme.hemiSky, theme.hemiGround, 1.1);
+    const hemi = new THREE.HemisphereLight(theme.hemiSky, theme.hemiGround, 1.6);
     group.add(hemi);
-    const ambient = new THREE.AmbientLight(theme.ambient, 1.4);
+    const ambient = new THREE.AmbientLight(theme.ambient, 2.0);
     group.add(ambient);
-    const dir = new THREE.DirectionalLight(theme.dirColor, 1.9);
+    const dir = new THREE.DirectionalLight(theme.dirColor, 2.4);
     dir.position.set(theme.dirX, theme.dirY, theme.dirZ);
     if (this.quality.shadows) {
       dir.castShadow = true;
@@ -194,13 +194,13 @@ export class GameRenderer {
       dir.shadow.camera.bottom = -half;
     }
     group.add(dir);
-    const accent = new THREE.PointLight(theme.accentLight, 1.2, 90);
+    const accent = new THREE.PointLight(theme.accentLight, 1.6, 90);
     accent.position.set(0, 14, 0);
     group.add(accent);
 
     // Cover, scaled to the arena so the layout reads the same at every size.
     const coverMat = new THREE.MeshStandardMaterial({
-      color: theme.wall,
+      color: lift(theme.wall, 0.16),
       roughness: Math.min(1, theme.wallRough + 0.1),
       metalness: 0.05,
     });
@@ -441,22 +441,37 @@ export class GameRenderer {
     const bodyColor = isEnergy ? 0x2a6ad4 : 0x2b2f38;
     const accentColor = isEnergy ? 0x66e6ff : 0xff8800;
 
+    // The camera looks down -Z, so the barrel must extend towards -Z.
     const body = new THREE.Mesh(
-      new THREE.BoxGeometry(0.16, 0.18, 0.72),
-      new THREE.MeshStandardMaterial({ color: bodyColor, roughness: 0.45, metalness: 0.72 }),
+      new THREE.BoxGeometry(0.085, 0.10, 0.40),
+      new THREE.MeshStandardMaterial({ color: bodyColor, roughness: 0.55, metalness: 0.18 }),
     );
     group.add(body);
 
     const barrel = new THREE.Mesh(
-      new THREE.CylinderGeometry(0.035, 0.045, 0.55, 10),
-      new THREE.MeshStandardMaterial({ color: 0x14171c, roughness: 0.35, metalness: 0.85 }),
+      new THREE.CylinderGeometry(0.018, 0.024, 0.38, 10),
+      new THREE.MeshStandardMaterial({ color: 0x3a4049, roughness: 0.5, metalness: 0.25 }),
     );
     barrel.rotation.x = Math.PI / 2;
-    barrel.position.set(0, 0.02, 0.6);
+    barrel.position.set(0, 0.012, -0.36);
     group.add(barrel);
 
+    const muzzle = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.030, 0.030, 0.07, 10),
+      new THREE.MeshStandardMaterial({
+        color: accentColor,
+        emissive: accentColor,
+        emissiveIntensity: 0.9,
+        roughness: 0.3,
+        metalness: 0.6,
+      }),
+    );
+    muzzle.rotation.x = Math.PI / 2;
+    muzzle.position.set(0, 0.012, -0.56);
+    group.add(muzzle);
+
     const accent = new THREE.Mesh(
-      new THREE.BoxGeometry(0.05, 0.05, 0.3),
+      new THREE.BoxGeometry(0.035, 0.035, 0.16),
       new THREE.MeshStandardMaterial({
         color: accentColor,
         emissive: accentColor,
@@ -464,19 +479,32 @@ export class GameRenderer {
         roughness: 0.3,
       }),
     );
-    accent.position.set(0, 0.09, 0.05);
+    accent.position.set(0, 0.065, -0.04);
     group.add(accent);
 
     const grip = new THREE.Mesh(
-      new THREE.BoxGeometry(0.1, 0.24, 0.14),
-      new THREE.MeshStandardMaterial({ color: 0x1a1d23, roughness: 0.8, metalness: 0.1 }),
+      new THREE.BoxGeometry(0.065, 0.17, 0.09),
+      new THREE.MeshStandardMaterial({ color: 0x2e3238, roughness: 0.85, metalness: 0.05 }),
     );
-    grip.position.set(0, -0.2, -0.06);
+    grip.position.set(0, -0.13, 0.09);
     grip.rotation.x = 0.22;
     group.add(grip);
 
-    group.position.set(0.26, -0.24, -0.55);
-    group.rotation.y = 0.03;
+    // Scaled down and tucked into the lower-right corner so the viewmodel
+    // never covers the playfield.
+    group.scale.setScalar(0.78);
+    group.position.set(0.17, -0.14, -0.42);
+    group.rotation.set(0.02, 0.06, 0.015);
+
+    // The viewmodel is parented to the camera, so the level lighting barely
+    // reaches it. A dedicated key light travels with the camera instead.
+    const keyLight = new THREE.PointLight(0xfff0dd, 3.2, 4, 2);
+    keyLight.position.set(0.35, 0.25, 0.1);
+    this.camera.add(keyLight);
+    const rimLight = new THREE.PointLight(0x88ccff, 1.6, 3, 2);
+    rimLight.position.set(-0.3, -0.1, -0.4);
+    this.camera.add(rimLight);
+
     this.camera.add(group);
     this.scene.add(this.camera);
     this.weaponModel = group;
@@ -503,7 +531,7 @@ export class GameRenderer {
     this.recoilTarget = Math.max(0, this.recoilTarget - dt * 3.2);
     this.recoil += (this.recoilTarget - this.recoil) * Math.min(1, dt * 18);
     if (this.weaponModel) {
-      this.weaponModel.position.set(0.26, -0.24 + Math.sin(performance.now() / 320) * 0.006, -0.55 + this.recoil * 0.12);
+      this.weaponModel.position.set(0.17, -0.14 + Math.sin(performance.now() / 320) * 0.005, -0.42 + this.recoil * 0.08);
       this.weaponModel.rotation.x = -this.recoil * 0.35;
     }
 
@@ -735,6 +763,18 @@ const BUFF_COLOURS: Record<string, number> = {
   energy: 0xb28bff,
   crit: 0xff8adf,
 };
+
+/**
+ * Raises the lightness of a colour, mirroring the brightness lift the legacy
+ * build applied to every level so that the dark chapters stayed readable.
+ */
+function lift(hex: number, amount: number): number {
+  const r = (hex >> 16) & 0xff;
+  const g = (hex >> 8) & 0xff;
+  const b = hex & 0xff;
+  const liftChannel = (c: number) => Math.min(255, Math.round(c + (255 - c) * amount));
+  return (liftChannel(r) << 16) | (liftChannel(g) << 8) | liftChannel(b);
+}
 
 /** Releases every geometry and material under `object`. */
 export function disposeObject(object: THREE.Object3D): void {
