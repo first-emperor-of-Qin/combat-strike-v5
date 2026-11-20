@@ -6,8 +6,9 @@
 # =============================================================================
 FROM node:22-alpine AS base
 WORKDIR /app
-ENV NODE_ENV=production
-# Corepack is not used; npm workspaces are used instead.
+# NODE_ENV is only set for the runtime stage. Setting it here would make
+# `npm ci` skip devDependencies, and the build stage needs the TypeScript
+# compiler.
 RUN apk add --no-cache tini
 
 # ---------------------------------------------------------------- deps
@@ -17,7 +18,7 @@ COPY packages/content/package.json packages/content/
 COPY packages/game-core/package.json packages/game-core/
 COPY apps/api/package.json apps/api/
 COPY apps/web/package.json apps/web/
-RUN npm ci --workspaces --include-workspace-root
+RUN npm ci --workspaces --include-workspace-root --include=dev
 
 # ---------------------------------------------------------------- build
 FROM deps AS build
@@ -33,7 +34,17 @@ RUN npm run build -w @combat-strike/content \
 
 # ---------------------------------------------------------------- runtime
 FROM base AS runtime
-COPY --from=build /app/node_modules ./node_modules
+ENV NODE_ENV=production
+
+# A fresh production-only install keeps the runtime image small: the build
+# stage installed the full toolchain, which the runtime does not need.
+COPY package.json package-lock.json ./
+COPY packages/content/package.json packages/content/
+COPY packages/game-core/package.json packages/game-core/
+COPY apps/api/package.json apps/api/
+COPY apps/web/package.json apps/web/
+RUN npm ci --workspaces --include-workspace-root --omit=dev && npm cache clean --force
+
 COPY --from=build /app/packages/content/package.json packages/content/
 COPY --from=build /app/packages/content/dist packages/content/dist
 COPY --from=build /app/packages/game-core/package.json packages/game-core/
@@ -42,7 +53,6 @@ COPY --from=build /app/apps/api/package.json apps/api/
 COPY --from=build /app/apps/api/dist apps/api/dist
 COPY --from=build /app/apps/api/migrations apps/api/migrations
 COPY --from=build /app/apps/web/dist apps/web/dist
-COPY --from=build /app/package.json ./
 
 # The API serves the built frontend as static files from the same origin.
 ENV API_STATIC_DIR=/app/apps/web/dist
