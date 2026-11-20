@@ -9,7 +9,9 @@
     "preview": "vite preview --port 4173 --strictPort",
     "typecheck": "tsc -p tsconfig.json --noEmit",
     "test:e2e": "playwright test",
-    "test": "playwright test"
+    "test": "playwright test",
+    "pretypecheck": "node scripts/ensure-deps.mjs",
+    "prebuild": "node scripts/ensure-deps.mjs"
   },
   "dependencies": {
     "@combat-strike/content": "*",

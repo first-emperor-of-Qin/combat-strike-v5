@@ -26,11 +26,11 @@ jobs:
       - name: 安装依赖
         run: npm ci
 
-      - name: 类型检查
-        run: npm run typecheck
-
       - name: 构建
         run: npm run build
+
+      - name: 类型检查
+        run: npm run typecheck
 
       - name: 内容包校验（50 关 / 44 件装备 / 10 档难度）
         run: npm run content:verify

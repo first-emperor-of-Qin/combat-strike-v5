@@ -24,7 +24,9 @@
     "db:migrate": "npm run db:migrate -w @combat-strike/api",
     "db:seed": "npm run db:seed -w @combat-strike/api",
     "content:import": "node tools/content-import/import-legacy-content.mjs",
-    "content:verify": "npm run verify -w @combat-strike/content"
+    "content:verify": "npm run verify -w @combat-strike/content",
+    "pretypecheck": "npm run build -w @combat-strike/content && npm run build -w @combat-strike/game-core",
+    "pretest": "npm run build -w @combat-strike/content && npm run build -w @combat-strike/game-core"
   },
   "devDependencies": {
     "@types/node": "^22.10.2",

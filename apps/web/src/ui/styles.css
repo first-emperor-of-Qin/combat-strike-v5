@@ -131,6 +131,8 @@
   --hud-radius: 10px;
   --content-max: 1680px;
   --screen-accent: var(--tech);
+  --screen-pad-y: clamp(24px, 3vw, 48px);
+  --screen-pad-x: clamp(28px, 4vw, 64px);
 
   /* --- Z scale -------------------------------------------------------- */
   --z-canvas: 0;
@@ -635,7 +637,7 @@ svg {
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
-  padding: clamp(24px, 3vw, 48px) clamp(28px, 4vw, 64px);
+  padding: var(--screen-pad-y) var(--screen-pad-x);
   overflow-x: hidden;
   overflow-y: auto;
   background: radial-gradient(1200px 620px at 12% -12%, rgba(0, 229, 255, 0.09), transparent 62%),
@@ -685,12 +687,22 @@ svg {
 }
 
 .screen__head {
+  position: sticky;
+  top: calc(-1 * var(--screen-pad-y));
+  z-index: 3;
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   gap: var(--sp-5);
+  /* Negative margin + matching padding keeps the natural position while the
+     header pins flush to the top edge once the screen scrolls. */
+  margin-top: calc(-1 * var(--screen-pad-y));
+  padding-top: var(--screen-pad-y);
   padding-bottom: var(--sp-4);
   border-bottom: 1px solid var(--line-1);
+  background: rgba(8, 11, 20, 0.92);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
   flex-wrap: wrap;
 }
 
@@ -746,20 +758,27 @@ svg {
 }
 
 .screen__body {
-  flex: 1 1 auto;
-  min-height: 0;
+  /* Grows with its content so the screen scrolls as a whole; the footer
+     stays pinned without ever overlapping the body. */
+  flex: 1 0 auto;
   display: flex;
   flex-direction: column;
   gap: var(--sp-5);
 }
 
 .screen__foot {
+  position: sticky;
+  bottom: 0;
+  z-index: 3;
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: var(--sp-4);
-  padding-top: var(--sp-4);
+  padding: var(--sp-4) 0;
   border-top: 1px solid var(--line-1);
+  background: linear-gradient(180deg, rgba(7, 10, 18, 0) 0%, rgba(7, 10, 18, 0.85) 14%, rgba(7, 10, 18, 0.97) 34%);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
   font-size: var(--fs-xs);
   color: var(--t3);
   flex-wrap: wrap;
@@ -1199,6 +1218,7 @@ svg {
   color: var(--t3);
 }
 
+/* The markup already prefixes the text with "BOSS：". */
 .level-card__boss {
   display: flex;
   align-items: center;
@@ -1208,14 +1228,6 @@ svg {
   font-size: var(--fs-xs);
   font-weight: 700;
   color: var(--gold);
-}
-.level-card__boss::before {
-  content: "BOSS";
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.14em;
-  color: var(--gold);
-  opacity: 0.8;
 }
 
 .level-card.is-locked {
@@ -1684,9 +1696,9 @@ svg {
 .codex-split {
   display: grid;
   grid-template-columns: minmax(248px, 320px) minmax(0, 1fr);
+  align-items: start;
   gap: var(--sp-4);
   min-height: 0;
-  flex: 1 1 auto;
 }
 
 .codex-list {
@@ -1695,7 +1707,7 @@ svg {
   gap: var(--sp-2);
   padding-right: var(--sp-2);
   overflow-y: auto;
-  max-height: 100%;
+  max-height: min(58vh, 620px);
 }
 
 .codex-item {
@@ -1703,6 +1715,7 @@ svg {
   align-items: center;
   gap: var(--sp-3);
   width: 100%;
+  min-width: 0;
   padding: var(--sp-3);
   border: 1px solid var(--line-1);
   border-left: 2px solid transparent;
@@ -1710,6 +1723,9 @@ svg {
   background: var(--surface-1);
   text-align: left;
   color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   transition: border-color var(--dur-2) var(--ease), background var(--dur-2) var(--ease),
     transform var(--dur-2) var(--ease);
 }
@@ -1757,6 +1773,7 @@ svg {
   box-shadow: var(--shadow-panel);
   -webkit-backdrop-filter: blur(14px) saturate(120%);
   backdrop-filter: blur(14px) saturate(120%);
+  max-height: min(58vh, 620px);
   overflow-y: auto;
 }
 
@@ -1844,6 +1861,32 @@ svg {
 
 .shop-item__buy {
   align-self: stretch;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 34px;
+  padding: 0 var(--sp-3);
+  border: 1px solid var(--line-2);
+  border-radius: var(--r-sm);
+  background: var(--surface-3);
+  color: var(--t1);
+  font-size: var(--fs-xs);
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  transition: background var(--dur-2) var(--ease), border-color var(--dur-2) var(--ease),
+    color var(--dur-2) var(--ease), box-shadow var(--dur-2) var(--ease);
+}
+.shop-item__buy:hover {
+  border-color: var(--tech-45);
+  background: var(--tech-08);
+  color: var(--tech);
+}
+.shop-item__buy[disabled] {
+  opacity: 0.45;
+  cursor: not-allowed;
+  border-color: var(--line-1);
+  background: rgba(255, 255, 255, 0.02);
+  color: var(--t3);
 }
 
 .shop-item.is-owned {
@@ -1856,7 +1899,11 @@ svg {
   border-color: rgba(82, 196, 26, 0.3);
   background: var(--ok-12);
   color: var(--ok);
-  pointer-events: none;
+}
+.shop-item.is-owned .shop-item__buy:hover {
+  border-color: var(--ok);
+  background: rgba(82, 196, 26, 0.2);
+  color: #b6f08a;
 }
 
 /* ============================================================================
